@@ -67,12 +67,12 @@ model_fit_RW <- stan(
 )
 
 # visualize diagnostics
-print(model_fit_RW, pars=c("eta_mu", "eta_sigma","beta_mu","beta_sigma", "alpha_mu","alpha_sigma","group_effect_eta","group_effect_beta","starting_utility"), probs=c(.1,.5,.9))
+print(model_fit_RW, pars=c("eta_mu", "eta_sigma","beta_mu","beta_sigma","alpha_mu_group1","alpha_sigma_group1","alpha_mu_group2","alpha_sigma_group2","group_effect_eta","group_effect_beta","group_effect_alpha","starting_utility"), probs=c(.1,.5,.9))
 
 traceplot(model_fit_RW, pars = c("eta_mu", "eta_sigma","beta_mu","beta_sigma","starting_utility"), inc_warmup = TRUE, nrow = 2)
 
 # hyperparameters posterior distributions
-stan_hist(model_fit_RW, pars = c("eta_mu", "eta_sigma","beta_mu","beta_sigma","alpha_mu","alpha_sigma","group_effect_eta","group_effect_beta","starting_utility"))
+stan_hist(model_fit_RW, pars = c("eta_mu", "eta_sigma","beta_mu","beta_sigma","alpha_mu_group1","alpha_sigma_group1","alpha_mu_group2","alpha_sigma_group2","group_effect_eta","group_effect_beta","group_effect_alpha","starting_utility"))
 
 # loo for model comparison
 loo_fit_RW <- loo::loo(model_fit_RW)
@@ -89,12 +89,12 @@ model_fit_2R <- stan(
 )
 
 # visualize diagnostics
-print(model_fit_2R, pars=c("eta_R_mu", "eta_R_sigma", "eta_U_mu", "eta_U_sigma", "beta_mu", "beta_sigma", "alpha_R_mu", "alpha_R_sigma", "group_effect_eta_R", "alpha_U_mu", "alpha_U_sigma", "group_effect_eta_U", "group_effect_beta", "starting_utility"), probs=c(.1,.5,.9))
+print(model_fit_2R, pars=c("eta_R_mu", "eta_R_sigma", "eta_U_mu", "eta_U_sigma", "beta_mu", "beta_sigma", "alpha_R_mu_group1", "alpha_R_sigma_group1", "alpha_U_mu_group1", "alpha_U_sigma_group1", "alpha_R_mu_group2", "alpha_R_sigma_group2", "alpha_U_mu_group2", "alpha_U_sigma_group2", "group_effect_eta_R", "group_effect_eta_U", "group_effect_beta", "group_effect_alpha_R", "group_effect_alpha_U", "starting_utility"), probs=c(.1,.5,.9))
 
-traceplot(model_fit_2R, pars = c("eta_R_mu", "eta_R_sigma", "eta_U_mu", "eta_U_sigma", "beta_mu", "beta_sigma", "alpha_R_mu", "alpha_R_sigma", "group_effect_eta_R", "alpha_U_mu", "alpha_U_sigma", "group_effect_eta_U", "group_effect_beta", "starting_utility"), inc_warmup = TRUE, nrow = 2)
+traceplot(model_fit_2R, pars = c("eta_R_mu", "eta_R_sigma", "eta_U_mu", "eta_U_sigma", "beta_mu", "beta_sigma", "group_effect_eta_R", "group_effect_eta_U", "group_effect_beta", "starting_utility"), inc_warmup = TRUE, nrow = 2)
 
 # hyperparameters posterior distributions
-stan_hist(model_fit_2R, pars = c("eta_R_mu", "eta_R_sigma", "eta_U_mu", "eta_U_sigma", "beta_mu", "beta_sigma", "alpha_R_mu", "alpha_R_sigma", "group_effect_eta_R", "alpha_U_mu", "alpha_U_sigma", "group_effect_eta_U", "group_effect_beta", "starting_utility"))
+stan_hist(model_fit_2R, pars = c("eta_R_mu", "eta_R_sigma", "eta_U_mu", "eta_U_sigma", "beta_mu", "beta_sigma", "alpha_R_mu_group1", "alpha_R_sigma_group1", "alpha_U_mu_group1", "alpha_U_sigma_group1", "alpha_R_mu_group2", "alpha_R_sigma_group2", "alpha_U_mu_group2", "alpha_U_sigma_group2", "group_effect_eta_R", "group_effect_eta_U", "group_effect_beta", "group_effect_alpha_R", "group_effect_alpha_U", "starting_utility"))
 
 # loo for model comparison
 loo_fit_2R <- loo::loo(model_fit_2R)
@@ -111,16 +111,38 @@ model_fit_PH <- stan(
 )
 
 # visualize diagnostics
-print(model_fit_PH, pars=c("eta_mu","eta_sigma","beta_mu","beta_sigma","gamma_mu","gamma_sigma","alpha_mu","alpha_sigma","omega_mu","omega_sigma","group_effect_eta","group_effect_beta","group_effect_gamma","starting_utility"), probs=c(.1,.5,.9))
+print(model_fit_PH, pars=c("eta_mu","eta_sigma","beta_mu","beta_sigma","gamma_mu","gamma_sigma","alpha_mu_group1","alpha_sigma_group1","alpha_mu_group2","alpha_sigma_group2","omega_mu_group1","omega_sigma_group1","omega_mu_group2","omega_sigma_group2","group_effect_eta","group_effect_beta","group_effect_alpha","group_effect_gamma","starting_utility"), probs=c(.1,.5,.9))
 
 traceplot(model_fit_PH, pars = c("eta_mu", "eta_sigma","beta_mu","beta_sigma","gamma_mu","gamma_sigma","starting_utility"), inc_warmup = TRUE, nrow = 2)
 
 # hyperparameters posterior distributions
-stan_hist(model_fit_PH, pars = c("eta_mu", "eta_sigma","beta_mu","beta_sigma","alpha_mu","alpha_sigma","group_effect_eta","group_effect_beta","starting_utility"))
+stan_hist(model_fit_PH, pars = c("eta_mu","eta_sigma","beta_mu","beta_sigma","gamma_mu","gamma_sigma","alpha_mu_group1","alpha_sigma_group1","alpha_mu_group2","alpha_sigma_group2","omega_mu_group1","omega_sigma_group1","omega_mu_group2","omega_sigma_group2","group_effect_eta","group_effect_beta","group_effect_alpha","group_effect_gamma","starting_utility"))
 
 # loo for model comparison
 loo_fit_PH <- loo::loo(model_fit_PH)
 loo_fit_PH
+
+##### Pearce Hall Reduced Parameters #####
+model_fit_PH_simple <- stan(
+  file = "models/pearce_hall_hierarchical_simple.stan",  # Stan program
+  data = data_for_model,    # named list of data
+  chains = 4,             # number of Markov chains
+  warmup = 500,          # number of warmup iterations per chain
+  iter = 1000,            # total number of iterations per chain
+  cores = 4              # number of cores (could use one per chain)
+)
+
+# visualize diagnostics
+print(model_fit_PH_simple, pars=c("eta_mu","eta_sigma","beta_mu","beta_sigma","gamma_mu","gamma_sigma","alpha_mu","alpha_sigma","omega_mu","omega_sigma","starting_utility"), probs=c(.1,.5,.9))
+
+traceplot(model_fit_PH_simple, pars = c("eta_mu", "eta_sigma","beta_mu","beta_sigma","gamma_mu","gamma_sigma","starting_utility"), inc_warmup = TRUE, nrow = 2)
+
+# hyperparameters posterior distributions
+stan_hist(model_fit_PH_simple, pars = c("eta_mu", "eta_sigma","beta_mu","beta_sigma","alpha_mu","alpha_sigma","starting_utility"))
+
+# loo for model comparison
+loo_fit_PH_simple <- loo::loo(model_fit_PH_simple)
+loo_fit_PH_simple
 
 ##### State Learning #####
 model_fit_SL <- stan(
@@ -133,12 +155,12 @@ model_fit_SL <- stan(
 )
 
 # visualize diagnostics
-print(model_fit_SL, pars=c("eta_mu", "eta_sigma","beta_mu","beta_sigma", "alpha_mu","alpha_sigma","group_effect_eta","group_effect_beta","starting_utility"), probs=c(.1,.5,.9))
+print(model_fit_SL, pars=c("eta_mu", "eta_sigma","beta_mu","beta_sigma","alpha_mu_group1","alpha_sigma_group1","alpha_mu_group2","alpha_sigma_group2","group_effect_eta","group_effect_beta","group_effect_alpha","starting_utility"), probs=c(.1,.5,.9))
 
 traceplot(model_fit_SL, pars = c("eta_mu", "eta_sigma","beta_mu","beta_sigma","starting_utility"), inc_warmup = TRUE, nrow = 2)
 
 # hyperparameters posterior distributions
-stan_hist(model_fit_SL, pars = c("eta_mu", "eta_sigma","beta_mu","beta_sigma","alpha_mu","alpha_sigma","group_effect_eta","group_effect_beta","starting_utility"))
+stan_hist(model_fit_SL, pars = c("eta_mu", "eta_sigma","beta_mu","beta_sigma","alpha_mu_group1","alpha_sigma_group1","alpha_mu_group2","alpha_sigma_group2","group_effect_eta","group_effect_beta","group_effect_alpha","starting_utility"))
 
 # loo for model comparison
 loo_fit_SL <- loo::loo(model_fit_SL)
@@ -155,12 +177,12 @@ model_fit_CA <- stan(
 )
 
 # visualize diagnostics
-print(model_fit_CA, pars=c("eta_mu", "eta_sigma", "beta_mu", "beta_sigma", "phi_mu", "phi_sigma", "theta_mu", "theta_sigma", "alpha_mu", "alpha_sigma", "group_effect_eta", "group_effect_beta", "group_effect_phi", "group_effect_theta", "starting_utility"), probs=c(.1,.5,.9))
+print(model_fit_CA, pars=c("eta_mu", "eta_sigma", "beta_mu", "beta_sigma", "phi_mu", "phi_sigma", "theta_mu", "theta_sigma", "alpha_mu_group1", "alpha_sigma_group1", "alpha_mu_group2", "alpha_sigma_group2", "group_effect_eta", "group_effect_beta","group_effect_alpha", "group_effect_phi", "group_effect_theta", "starting_utility"), probs=c(.1,.5,.9))
 
-traceplot(model_fit_CA, pars = c("eta_mu", "eta_sigma", "beta_mu", "beta_sigma", "phi_mu", "phi_sigma", "theta_mu", "theta_sigma", "alpha_mu", "alpha_sigma", "group_effect_eta", "group_effect_beta", "group_effect_phi", "group_effect_theta", "starting_utility"), inc_warmup = TRUE, nrow = 2)
+traceplot(model_fit_CA, pars = c("eta_mu", "eta_sigma", "beta_mu", "beta_sigma", "phi_mu", "phi_sigma", "theta_mu", "theta_sigma", "group_effect_beta", "group_effect_alpha", "group_effect_phi", "group_effect_theta", "starting_utility"), inc_warmup = TRUE, nrow = 2)
 
 # hyperparameters posterior distributions
-stan_hist(model_fit_CA, pars = c("eta_mu", "eta_sigma", "beta_mu", "beta_sigma", "phi_mu", "phi_sigma", "theta_mu", "theta_sigma", "alpha_mu", "alpha_sigma", "group_effect_eta", "group_effect_beta", "group_effect_phi", "group_effect_theta", "starting_utility"))
+stan_hist(model_fit_CA, pars = c("eta_mu", "eta_sigma", "beta_mu", "beta_sigma", "phi_mu", "phi_sigma", "theta_mu", "theta_sigma", "alpha_mu_group1", "alpha_sigma_group1", "alpha_mu_group2", "alpha_sigma_group2", "group_effect_eta", "group_effect_beta","group_effect_alpha", "group_effect_phi", "group_effect_theta", "starting_utility"))
 
 # loo for model comparison
 loo_fit_CA <- loo::loo(model_fit_CA)

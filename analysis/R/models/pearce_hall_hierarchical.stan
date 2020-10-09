@@ -1,4 +1,4 @@
-// Hierarchical Rescorla Wagner Model
+// Hierarchical Pearce Hall Model
 
 // function for converting log_lik_raw (all trials) to log_lik (only trials with responses)
 functions {
@@ -92,11 +92,11 @@ transformed parameters {
 // The model to be estimated
 model {
   // population level
-  eta_mu ~ normal(0,5); 
+  eta_mu ~ normal(0,1); 
   eta_sigma ~ normal(0,1); 
   beta_mu ~ normal(5,10); 
   beta_sigma ~ normal(0,5); 
-  gamma_mu ~ normal(0,5); 
+  gamma_mu ~ normal(0,1); 
   gamma_sigma ~ normal(0,1); 
   
   //subject level
@@ -105,9 +105,9 @@ model {
   gamma_raw ~ normal(0,1);
   
   //group level
-  //group_effect_eta ~ 
-  //group_effect_beta ~ 
-  //group_effect_sigma ~ 
+  group_effect_eta ~ normal(0,1);
+  group_effect_beta ~ normal(0,1);
+  group_effect_gamma ~ normal(0,1);
 
   //misc
   starting_utility ~ normal(0.5,0.5);
@@ -122,27 +122,53 @@ model {
 // Generated after model fitting, turns eta into alpha (learning rate between 0 and 1)
 generated quantities{
   vector[nSubjects] alpha; //learning rate
-  real alpha_mu;
-  real alpha_sigma;
+  real alpha_mu_group1;
+  real alpha_mu_group2;
+  real alpha_sigma_group1;
+  real alpha_sigma_group2;
+  real group_effect_alpha;
   vector[nSubjects] omega; //associabiity updating weight
-  real omega_mu;
-  real omega_sigma;
+  real omega_mu_group1;
+  real omega_mu_group2;
+  real omega_sigma_group1;
+  real omega_sigma_group2;
+  real group_effect_omega;
   vector[TotalTrials] raw_log_lik; // log likelihood for model comparison; one value per trial
   vector[madeChoiceTrials] log_lik; // actual log lik, excluding missing-choice trials
+  vector [sum(group)] group1_alphas;
+  vector [nSubjects - sum(group)] group2_alphas;
+  vector [sum(group)] group1_omegas;
+  vector [nSubjects - sum(group)] group2_omegas;
+  int g1_ind = 0;
+  int g2_ind = 0;
   
-  // get alpha and omega for each subject
+  // get alphas and omegas for each subject for each group
   for (s in 1:nSubjects){
+    // get alpha for each subject
     alpha[s] = inv_logit(eta[s]);
     omega[s] = inv_logit(gamma[s]);
+    if (group[s] == 1){
+      g1_ind = g1_ind + 1;
+      group1_alphas[g1_ind] = alpha[s];
+      group1_omegas[g1_ind] = omega[s];
+    } else {
+      g2_ind = g2_ind + 1;
+      group2_alphas[g2_ind] = alpha[s];
+      group2_omegas[g2_ind] = omega[s];
+    }
   }
-
-  // caluclate mean and sigma of subject alphas
-  alpha_mu = mean(alpha);
-  alpha_sigma = sd(alpha);
-
-  // caluclate mean and sigma of subject omegas
-  omega_mu = mean(omega);
-  omega_sigma = sd(omega);
+  
+  alpha_mu_group1 = mean(group1_alphas);
+  alpha_sigma_group1 = sd(group1_alphas);
+  alpha_mu_group2 = mean(group2_alphas);
+  alpha_sigma_group2 = sd(group2_alphas);
+  group_effect_alpha = inv_logit(eta_mu) - inv_logit(eta_mu + group_effect_eta);
+  
+  omega_mu_group1 = mean(group1_omegas);
+  omega_sigma_group1 = sd(group1_omegas);
+  omega_mu_group2 = mean(group2_omegas);
+  omega_sigma_group2 = sd(group2_omegas);
+  group_effect_omega = inv_logit(gamma_mu) - inv_logit(gamma_mu + group_effect_gamma);
   
   // get log likelihood of each trial
   for (t in 1:TotalTrials){

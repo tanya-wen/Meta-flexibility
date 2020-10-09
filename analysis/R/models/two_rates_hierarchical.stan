@@ -90,9 +90,9 @@ transformed parameters {
 // The model to be estimated
 model {
   // population level
-  eta_R_mu ~ normal(0,5); 
+  eta_R_mu ~ normal(0,1); 
   eta_R_sigma ~ normal(0,1); 
-  eta_U_mu ~ normal(0,5); 
+  eta_U_mu ~ normal(0,1); 
   eta_U_sigma ~ normal(0,1); 
   beta_mu ~ normal(5,10); 
   beta_sigma ~ normal(0,5); 
@@ -103,9 +103,9 @@ model {
   eta_U_raw ~ normal(0,1);
   
   //group level
-  // group_effect_eta_R ~ 
-  // group_effect_eta_U ~ 
-  // group_effect_beta ~ 
+  group_effect_eta_R ~ normal(0,1);
+  group_effect_eta_U ~ normal(0,1);
+  group_effect_beta ~ normal(0,1);
 
   //misc
   starting_utility ~ normal(0.5,0.5);
@@ -121,24 +121,51 @@ model {
 generated quantities{
   vector[nSubjects] alpha_R;
   vector[nSubjects] alpha_U;
-  real alpha_R_mu;
-  real alpha_U_mu;
-  real alpha_R_sigma;
-  real alpha_U_sigma;
+  real alpha_R_mu_group1;
+  real alpha_R_mu_group2;
+  real alpha_U_mu_group1;
+  real alpha_U_mu_group2;
+  real alpha_R_sigma_group1;
+  real alpha_R_sigma_group2;
+  real alpha_U_sigma_group1;
+  real alpha_U_sigma_group2;
+  real group_effect_alpha_R;
+  real group_effect_alpha_U;
   vector[TotalTrials] raw_log_lik; // log likelihood for model comparison; one value per trial
   vector[madeChoiceTrials] log_lik; // actual log lik, excluding missing-choice trials
-  
-  // get alpha for each subject
+  vector [sum(group)] group1_R_alphas;
+  vector [nSubjects - sum(group)] group2_R_alphas;
+  vector [sum(group)] group1_U_alphas;
+  vector [nSubjects - sum(group)] group2_U_alphas;
+  int g1_ind = 0;
+  int g2_ind = 0;
+
+  // get alphas for each subject for each group
   for (s in 1:nSubjects){
+    // get alpha for each subject
     alpha_R[s] = inv_logit(eta_R[s]);
     alpha_U[s] = inv_logit(eta_U[s]);
+    if (group[s] == 1){
+      g1_ind = g1_ind + 1;
+      group1_R_alphas[g1_ind] = alpha_R[s];
+      group1_U_alphas[g1_ind] = alpha_U[s];
+    } else {
+      g2_ind = g2_ind + 1;
+      group2_R_alphas[g2_ind] = alpha_R[s];
+      group2_U_alphas[g2_ind] = alpha_U[s];
+    }
   }
-
-  // caluclate mean and sigma of subject alphas
-  alpha_R_mu = mean(alpha_R);
-  alpha_R_sigma = sd(alpha_R);
-  alpha_U_mu = mean(alpha_U);
-  alpha_U_sigma = sd(alpha_U);
+  
+  alpha_R_mu_group1 = mean(group1_R_alphas);
+  alpha_R_sigma_group1 = sd(group1_R_alphas);
+  alpha_U_mu_group1 = mean(group1_U_alphas);
+  alpha_U_sigma_group1 = sd(group1_U_alphas);
+  alpha_R_mu_group2 = mean(group2_R_alphas);
+  alpha_R_sigma_group2 = sd(group2_R_alphas);
+  alpha_U_mu_group2 = mean(group2_U_alphas);
+  alpha_U_sigma_group2 = sd(group2_U_alphas);
+  group_effect_alpha_R = inv_logit(eta_R_mu) - inv_logit(eta_R_mu + group_effect_eta_R);
+  group_effect_alpha_U = inv_logit(eta_U_mu) - inv_logit(eta_U_mu + group_effect_eta_U);
   
   // get log likelihood of each trial
   for (t in 1:TotalTrials){

@@ -19,13 +19,15 @@ functions {
 // Expected Input Data of Model
 data {
   int<lower=0> nSubjects; // the number of subjects
+  // int<lower=0> nSubjects_Group1;
+  // int<lower=0> nSubjects_Group2;
   int<lower=0> TotalTrials; // total number of trials across all subjects
   int<lower=0> madeChoiceTrials; // total number of trials where a choice is made
   int<lower=0> Subject[TotalTrials]; // on each trial, which subject made the choice? ** need to be continuous vector of integars starting from 1
   int<lower=0> TrialNum[TotalTrials]; // trial number for each subject
   int<lower=0, upper = 2> choices[TotalTrials]; // all choices *** lower bound changed to 0 to accommodate missed trials
   int<lower=0, upper = 1> rewards[TotalTrials]; //all rewards
-  int<lower=0, upper = 1> group[nSubjects]; //group identity of each subjects
+  int<lower=0, upper = 1> group[nSubjects]; //group identity of each subject
 }
 
 // Parameters being Estimated by the Model
@@ -80,7 +82,7 @@ transformed parameters {
 // The model to be estimated
 model {
   // population level
-  eta_mu ~ normal(0,5); 
+  eta_mu ~ normal(0,1); 
   eta_sigma ~ normal(0,1); 
   beta_mu ~ normal(5,10); 
   beta_sigma ~ normal(0,5); 
@@ -90,8 +92,8 @@ model {
   eta_raw ~ normal(0,1);
   
   //group level
-  //group_effect_eta ~ 
-  //group_effect_beta ~ 
+  group_effect_eta ~ normal(0,1);
+  group_effect_beta ~ normal(0,1);
 
   //misc
   starting_utility ~ normal(0.5,0.5);
@@ -106,19 +108,38 @@ model {
 // Generated after model fitting, turns eta into alpha (learning rate between 0 and 1)
 generated quantities{
   vector[nSubjects] alpha;
-  real alpha_mu;
-  real alpha_sigma;
+  real alpha_mu_group1;
+  real alpha_mu_group2;
+  real alpha_sigma_group1;
+  real alpha_sigma_group2;
+  real group_effect_alpha;
   vector[TotalTrials] raw_log_lik; // log likelihood for model comparison; one value per trial
   vector[madeChoiceTrials] log_lik; // actual log lik, excluding missing-choice trials
-  
-  // get alpha for each subject
+  vector [sum(group)] group1_alphas;
+  vector [nSubjects - sum(group)] group2_alphas;
+  int g1_ind = 0;
+  int g2_ind = 0;
+    
+  // get alphas for each subject for each group
   for (s in 1:nSubjects){
+    // get alpha for each subject
     alpha[s] = inv_logit(eta[s]);
+    if (group[s] == 1){
+      g1_ind = g1_ind + 1;
+      group1_alphas[g1_ind] = alpha[s];
+    } else {
+      g2_ind = g2_ind + 1;
+      group2_alphas[g2_ind] = alpha[s];
+    }
   }
+  
+  //mean(10000 x inv_logit(sample(normal(eta_mu, eta_sigma))))
 
-  // caluclate mean and sigma of subject alphas
-  alpha_mu = mean(alpha);
-  alpha_sigma = sd(alpha);
+  alpha_mu_group1 = mean(group1_alphas);
+  alpha_sigma_group1 = sd(group1_alphas);
+  alpha_mu_group2 = mean(group2_alphas);
+  alpha_sigma_group2 = sd(group2_alphas);
+  group_effect_alpha = inv_logit(eta_mu) - inv_logit(eta_mu + group_effect_eta);
   
   // get log likelihood of each trial
   for (t in 1:TotalTrials){
