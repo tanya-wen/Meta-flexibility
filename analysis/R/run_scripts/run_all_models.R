@@ -1,23 +1,23 @@
 library("rstan") # observe startup messages
 library("tidyverse")
-# setwd("/Users/tanyawen/Box/Extra_Space_for_Tanya/meta-flexibility")
+setwd("/Users/tanyawen/Box/Extra_Space_for_Tanya/meta-flexibility")
 # load("~/Box/meta-flexibility/RData.RData")
-setwd("/Users/rmgeddert/Box/meta-flexibility")
+# setwd("/Users/rmgeddert/Box/meta-flexibility")
 
 # choose which Experiment to analyze
-exp_num = 1;
+exp_num = 3;
 
 #read the list of behavioral files
-#subFiles = list.files(path=sprintf("/Users/tanyawen/Box/Extra_Space_for_Tanya/meta-flexibility/experiment%i/",exp_num), pattern="*.log")
-subFiles = list.files(path=sprintf("/Users/rmgeddert/Box/meta-flexibility/experiment%i/",exp_num), pattern="*.log")
+subFiles = list.files(path=sprintf("/Users/tanyawen/Box/Extra_Space_for_Tanya/meta-flexibility/experiment%i/",exp_num), pattern="*.log")
+#subFiles = list.files(path=sprintf("/Users/rmgeddert/Box/meta-flexibility/experiment%i/",exp_num), pattern="*.log")
 
 #for each subject, load data, and add to data frame
 allSubjects <- data.frame() 
 subject_total_acc = list();
 for (subj in 1:length(subFiles)) {
   # read subject data
-  #sub_dat = read.csv(file.path(sprintf("/Users/tanyawen/Box/Extra_Space_for_Tanya/meta-flexibility/experiment%i/",exp_num),subFiles[subj]));
-  sub_dat = read.csv(file.path(sprintf("/Users/rmgeddert/Box/meta-flexibility/experiment%i/",exp_num),subFiles[subj]));
+  sub_dat = read.csv(file.path(sprintf("/Users/tanyawen/Box/Extra_Space_for_Tanya/meta-flexibility/experiment%i/",exp_num),subFiles[subj]));
+  #sub_dat = read.csv(file.path(sprintf("/Users/rmgeddert/Box/meta-flexibility/experiment%i/",exp_num),subFiles[subj]));
   # calculate subject accuracy
   subject_total_acc[subj] = mean(as.integer(as.logical(sub_dat$response_acc[41:280])),na.rm=TRUE)
   # analyze good subjects only
@@ -26,12 +26,19 @@ for (subj in 1:length(subFiles)) {
   }
 }
 
+# fix missing data (NA)
+allSubjects <- allSubjects %>% 
+  mutate(response = ifelse(is.na(response), "none", response)) %>% 
+  mutate(response_time = ifelse(is.na(response_time), 0, response_time)) %>% 
+  mutate(response_acc = ifelse(is.na(response_acc), "false", response_acc))
+
+# organize transfer data
 allSubjects_transfer <- allSubjects %>% 
   filter(practice=="false") %>% 
-  filter(trial >= 120) %>% 
+  filter(as.numeric(trial) >= 120) %>% 
   mutate(madeChoice = ifelse(response_time > 300, 1, 0)) %>% 
   mutate(sub_num = group_indices(., subject)) %>% 
-  mutate(trial_num = trial - 119) %>% 
+  mutate(trial_num = as.numeric(trial) - 119) %>% 
   mutate(picked_rule = ifelse(madeChoice == 0, 0, ifelse(as.character(type) == type[1], ifelse(as.character(answer) == as.character(response), 1, 2), 
                               ifelse(as.character(answer) == as.character(response), 2, 1)))) %>% 
   mutate(result = ifelse(reward_validity == 1, ifelse(as.character(answer) == as.character(response), 1, 0), 
@@ -189,4 +196,4 @@ loo_fit_CA <- loo::loo(model_fit_CA)
 loo_fit_CA
 
 ##### Compare Models #####
-loo::loo_compare(loo_fit_RW, loo_fit_2R, loo_fit_SL)
+loo::loo_compare(loo_fit_RW, loo_fit_2R, loo_fit_SL, loo_fit_PH)
