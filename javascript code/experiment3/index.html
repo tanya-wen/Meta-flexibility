@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="Tanya Wen" content="Meta-Flexibility" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Stylesheets
+	============================================= -->
+    <link rel="stylesheet" href="css/tachyons.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/lois-style.css" type="text/css" />
+
+    <!--- Javascript on page load
+	============================================= -->
+    <script type="text/javascript">
+
+    </script>
+    <!-- Document Title
+	============================================= -->
+    <title>Meta-Flexibility</title>
+
+</head>
+
+<body>
+    <noscript>
+        <p>Javascript has been disabled in your browser.</p>
+        <p>In order to complete this study, you must enable JavaScript.</p>
+        <p>Here are <a href="https://www.enable-javascript.com/">instructions on how to enable JavaScript in your web
+                browser</a>.</p>
+    </noscript>
+    <header id='mal-header'>
+        <img style="max-height: 150px" id='mal-logo' src='images/logo3.png' alt='logo for mind at large lab' />
+    </header>
+
+    <div id='info-consent-letter'>
+        <p><b>Title of research study:</b> Investigating cognitive flexibility</p>
+        <p><b>Key Information</b></p>
+        <p>This consent form asks you to take part in a research study. This MTurk task is research being conducted by
+            the Egner Lab in the Center for Cognitive Neuroscience and Duke University.
+        </p>
+        <p><b>Purpose:</b>The purpose of this study is to find out more about how people switch between different task
+            rules. We expect about 10 minutes to go through the instructions and practice. The main experiment will not
+            exceed a maximum of 20 minutes. If you choose to take part in this study, you will be completing a task that
+            involves matching up different visual images (different-colored shapes on playing cards). In particular, you
+            will be asked to try and learn different rules for matching playing cards to each other, based on feedback
+            (whether you made the correct choice or not). We ask that you complete this task as accurately as you are
+            able to. We will also ask you common demographic questions about yourself. </p>
+        <p>This study is completely voluntary and you can withdraw from this study at any time by closing your Internet
+            browser window. </p>
+        <p>You will receive $2.50 plus additional rewards for your participation. We will screen your responses prior to
+            compensation. If you do not complete the task, or we feel that you completed it to an unsatisfactory
+            standard (i.e. you do not follow the instructions), you will not be compensated. You will also need to
+            acheive at least 65% accuracy to be compensated.</p>
+        <p>At the end of the study, you’ll receive a confirmation code that you must enter into Mechanical Turk in order
+            to receive payment.</p>
+        <p><b>How your confidentiality will be maintained:</b>Amazon Mechanical Turk will provide us, the researchers,
+            only with your responses. We will not have access to your personal information. </p>
+        <p><b>Benefits and Risks:</b> There are no expected risks or benefits to you for participating in this research
+            study. </p>
+        <p><b>Contact information:</b> If you have any questions at this time or during the experiment, please feel free
+            to ask. If questions arise after the experiment, you may contact the primary investigator, Tobias Egner
+            (tobias.egner@duke.edu or 919-684-1034). You may also contact Human Subjects Protection at
+            campusirb@duke.edu for questions about your rights as a research subject. </p>
+        <hr>
+        <p>By clicking on the “<b>I Agree to Participate</b>” button below, you indicate that you are 18 years of age or
+            older, that you voluntarily agree to participate in this study and that you understand the information in
+            this consent form. You have not waived any legal rights you would otherwise have as a participant in a
+            research study.</p>
+
+    </div>
+
+    <div id='decline-to-participate'>
+        <p>You have declined to participate at this time.</p>
+        <p>If you change your mind, simply reload this webpage.</p>
+    </div>
+    <button id='no-consent-btn' class='consent-btn' style="display: inline; visibility: visible">I do not agree to
+        participate</button>
+    <button id='yes-consent-btn' class='consent-btn' style="display: inline; visibility: visible"><b>I agree to
+            participate</b></button>
+
+    <!-- Javascript before page load
+    ============================================== -->
+    <script type="text/javascript" src="js/common/mTurk.js"></script>
+    <!-- custom JS -->
+    <script>
+        document.querySelector("#info-consent-letter").style.display = "block"
+        document.querySelector("#info-consent-letter").style.visibility = "visible"
+
+
+        document.querySelector("#no-consent-btn").addEventListener("click",
+            function () {
+                document.querySelector("#info-consent-letter").style.display = "none";
+                document.querySelector("#decline-to-participate").style.display = "block";
+                document.querySelector("#decline-to-participate").style.visibility = "visible";
+                document.querySelector("#no-consent-btn").style.display = "none";
+                document.querySelector("#yes-consent-btn").style.display = "none";
+            });
+
+
+        document.querySelector("#yes-consent-btn").addEventListener("click", function () {
+            let mt = mTurk.turkInfo()
+            window.open("task.html?" + "workerid=" + mt.workerId + "&hitid=" + mt.hitId + "&assid=" + mt.assignmentId, "_self");
+
+            // prevent duplicate workers from completing task
+            let workerArr = ["A1IDTE46L2A3OB", "A1T643M1P572AA", "A3EPYIKGXR7314", "A2E0LU8V4EUX5C", "A2FARB7LA24AU8", "A1K5UMQ040BJPN", "AL7RVCQ7N4GQY", "A32JEH06T23HDF", "A2A2K6NK6ZHD5Q", "A2FGKKWP33DFWS", "ACJ6NSCIWMUZI", "A1250NYFUF4KI5", "A3KP8KFGG6734Q", "A2HJDLSU95MH8Q", "AZZO4KK8MYSYJ", "A1BATOF1GP7CKQ", "A3EQO5ZIDBTSVK", "A2VODSMDCFPESC", "AZNIEFUIVB2H0", "A1ROEDVMTO9Y3X", "ABPTDT8JSGAI7", "AB036D1V69QGV", "A1CXXG7SJUHRN1", "A5KH93VVQ3YYR", "A1KS9LITOVPAT8", "A8O6G8WC2585", "A20SXG1DHDIDI7", "A1B5SSGMTAQ9B5", "A2CHD0TNWHFW1R", "AXPBPXPFGL1VH", "AHPUGSFF9HA5I", "A3O0ZQMDKOKAMR", "A1NFBKUYYVUYWF", "A1D9ZWU1M46SAF", "A3B2UA2GLUHL2I", "NA", "A25N0K40JAZTN1", "A1YT6E0W0SDP0R", "A2GV9WSNSPX53", "AW5O1RK3W60FC", "AXO22N46CSNVT", "A4W9APAHFWVLO", "AGWWUXDX6CI38", "A25PFSORDO3SWQ", "A1WR3WTEHJEY2D", "A1TMZLYXQAK8Q0", "A2G7DTL156PTKA", "A1RV2LERVS0A4H", "A15J42M6EC7Y1K", "A1MN2PWAV10VAB", "A36ZRUGMKQA5KO", "A1SLJKNSNHOJRN", "AK3H5QRAROFGP", "A3VENK02U0X16N", "AA8PZKO9XGCKO", "A30KYQGABO7JER", "A002160837SWJFPIAI7L7", "A2CWJRAEFZ44HU", "A1GRPIBHW72HDU", "A12ATVBE1I4567", "A1DX0Z20W07YOR", "A1P47Q6LZPLQ6P", "A1F1BIPJR11LSR", "A3CGQOJC28OVGN", "A1SHLWKA0UH1IS", "A12LI6GAHU6S2H", "A82Q1HS5CPZ5I", "A29V2XPA9H2NAN", "AXKM02NVXNGOM", "AXY0D2AMLKE2A", "A2V27A9GZA1NR2", "A2ZDEERVRN5AMC", "AFDC9A6Z60W2Z", "A2OVX9UW5WANQE", "A3CI73EFDLS3OF", "A2XQ3CFB5HT2ZQ", "AOFDUROJ8XRZT", "ARB8SJAWXUWTD", "A30F1NPCF53CRE", "A39C1BN9ZSQ0R2", "A19UBZFVUWL1ES", "AUQ79MANVDU9B", "A267GLM78AMQ75", "A1198W1SPF1R4", "AFM65NU0UXIGP", "AYPOAY43REHC8", "ACGGIBC0P38HU", "A6MWJK1YEY5L2", "A12HWPFXQPITHD", "A1TGV7LT6LTIQU", "A248QG4DPULP46", "A2XPWASDT8AYXH", "A15XIKX3PI7SLK", "A1N8BW04V76ZSY", "A32J0WKL5KD8C0", "A2OX8TSRCU6NKD", "A3UN1F1EOHKKE6", "A10JXOU89D5RXR", "A2PZ8MVVT6TQJM", "A3CYHZ9BKS79E5", "A2Y5I2HJTRFR8H", "A30HUZHJBOX1LK", "A24XBVPC9MYJVX", "A30GCTXJ17JC3I", "A2M926W9I0CP93", "A3JTDNRJYVCGQD", "A1P2RQ166VS5BT", "A1UGFNSA16TKA0", "A34DWBBWZRLO1X", "A2CHDWKAYZ3P3E", "A8C3WNWRBWUXO", "A2NKW6JBEM4LL4", "A3EHDY67QENKPT", "AD0NVUGLDYDYN", "AA4O2W236E3FW", "A1969Q0R4Y0E3J", "A3JFC6OJ13O1XR", "A2UTDZAZV1DF0N", "A3JBAUWN5T7E0Q", "AUO7GWTC1EAK7", "A1KHRQ121JTDF6", "AWKUOA7M4P8YI", "A12HZGOZQD5YK7", "A2196WCNDZULFS", "A2ITJNPW1LDUN7", "A1PHDT66U6IK4Q", "AM8OWAW9TUVLN", "A1CY7IOJ9YH136", "AQ9Y6WD8O72ZC", "A3GLUDQZGEJL5G", "A1KX1CMLUCQNFX", "A2GTJ0BD4CG1A2", "A3V9JFVZQ2XF4Y", "A2RGIULFG1GWF5", "A1F1TBDHPYAAXT", "A2BCNRHZU9V7C4", "A1V4BLIC5U5HPX", "A2GZ00IMOT6L3X", "A1KGCOR8OXYR72", "A184EIWAV7P9EH", "AVD6HMIO1HLFI", "A2GOS6NF74E2ST", "A88DXNDGDUWEN", "A3D2U4QF7821ZW", "A3KF6O09H04SP7", "AD1FDB9A61LMS", "A3L8LSM7V7KX3T", "A1K35CNHGJEI9Q", "AL83KKXUORS9Y", "AILDNTO2TWB4A", "AT6LDQNLKTUSE", "A1VM06KJPJEYUD", "A1KZ21TSAYUHO4", "A288RSAGJBLY9", "APGX2WZ59OWDN", "ABO9F0JD9NN54", "A1LB8HVSXK66U0", "A2JZUSRBP6H5S", "A270HX8LH9LJ8W", "ASW9MABLSXSPK", "A3URLNXHLP4ARU", "A2WCDQDLMC6J72", "AZZA3J049G7R5", "A1VF3WAZ8YS8K2", "A2YTQDLACTLIBA", "A2J5N770I859WE", "ARLGZWN6W91WD", "AOS2PVHT2HYTL", "AXJ1PE87PD0KK", "A3CD3C99T8S6ON", "A2XVL0RNQMWI17", "A3RW1RI9S5BXB2", "A1DIKLERUZ5WS0", "A12XVSIL669PVI", "A3EVRS5DB4TE1A", "A17PAE30BGBO1T", "A2IP3ZAFYGV8M9", "A36470UBRH28GO", "AUAN582MLI96N", "A3B2YRXL26RPVH", "A3DS5B06ZCD3E3", "A2FL477TMKC91L", "A14EYTLSMJRPUK", "A1JJYY622DGE5L", "A1R5W4RQZTROD8", "A28J7H4TH29DC3", "AVZOC3OGBQRX2", "A3DKYNYN50FYFY", "A27VFM67RPD2L5", "A3DUZ6WCFZRLX9", "AP4A0MZOKR52J", "A31X0GSY38JNZY", "AX5YKKRJ8IMN4", "A8028AFBBS29G", "AKQAI78JTXXC9", "A2JCK494NV7TFX", "A1W1X3S1Y0RKF3", "A3PRQ2GSU42718", "A2APG8MSLJ6G2K", "A2Z43TA0WZ0EG0", "A1PLQGQ95NICAF", "A2615YW1YERQBO", "A3KC26Z78FBOJT", "A2WPKP73S4MBLK", "A3UF6XXFFRR237", "A2FGP5K2VWW23G", "A10AVWALIHR4UQ", "A1V1JNPU0KOA3X", "A7204W9E8IR1R", "ARVO22MUH1FUZ", "A1V2H0UF94ATWY", "A2PXJTMWGUE5DC", "A2WUXZOY4CRF5R", "A2EKCMS8IKV57N", "AT5P2JKIUHFYP", "A28SYXQL3YOKVL", "A1ZI4VU6650Q8B", "A18T7E73TNGOKP", "A26LOVXF4QZZCO", "AU34T9OMHN4Z4", "A11W7R2O4RQSSS", "A2ZBDSR2LZNVAE", "A15FXHC1CVNW31", "A221L64A30LW7Z", "A3P5WIW36V70AI", "A2SR85I8JMO1ZZ", "A2WC2NO555XU3J", "A1IWRYUOVXAB0Z", "AIOLG7U4ZM44P", "A2ZJS73XSSMRTD", "A1GTYHV8OYQQLV", "A1PKCBFB4QY19G", "A6WXIKRYMXNIN", "AAM0Q3DCSSQ0A", "A1P3HHEXWNLJMP", "A3H3BTRV6I3LYU", "A13WTEQ06V3B6D", "A37K1ICCYT6EU1", "ASI2B6A3Y556Z", "AWVIOLZUKBNVU", "A38NFX88VZDMJ3", "AA6RYE4V0IBKM", "A3QXOE8A91D0C5", "A1VEEZ5D9WXZIV", "A2C7A6E70NYNUI", "A5BMKZRGHNSRT", "A2IGPW784OFV3D", "A1B5O1E2T429ET", "A2DWPP1KKAY0HG", "A3493E42N1JZVF", "A1N7O7E8HC03D8", "A2F2DDH12YU4AK", "AFA888ME14ICF", "A4WBW7FVQASZE", "A1IQUHRI7G63YF", "A3H35QRODK1C4K", "A2EPBSY0VPI38S", "A2A91NSJ5LMGOT", "A2PUL3ZDXOW0VZ", "A5T9IFDZ3W4T6", "A248LF7KKHXZ14", "A33L61XKPX76DB", "A2MX5YW3DSQ61W", "A3C0LPVN749UF3", "A1PLZ8RM4NW43J", "A3QEVFM3UD67BA", "A2AAFWAAS9C1QC", "A2482SLAY120J2", "A2QQFGD7K7AHK8", "A289D98Z4GAZ28", "A2QPMJ4GADLUW2", "AN098C29EGJ6", "A3R5OJR60C6004", "A3QNCW3LR2AVOV", "A2R89RXGEVG05I", "A3PIUNG7VXQWTR", "A1AKL5YH9NLD2V", "A3O5RKGH6VB19C", "A1ATL3G98SFW4V", "A38K45F4I17TKB", "AWLT46A9EWTK8", "A2D5U0AACT6WS1", "A37X1GHLB2HCX7", "AFIK3VBMMX6G6", "A34DYM8J0X5VK", "A3KVNVHIYT3JI8", "A2P8V5SKYLL5I4"];
+            let duplicate_worker = workerArr.includes(mt.workerId);
+            if (duplicate_worker) {
+                alert("You have performed our task before. Unfortunately, we are unable to allow duplicate entries. Please return this HIT. Thanks!")
+            }
+        });
+
+    </script>
+</body>

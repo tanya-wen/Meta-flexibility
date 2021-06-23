@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="Tanya Wen" content="Meta-Flexibility" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Stylesheets
+	============================================= -->
+    <link rel="stylesheet" href="css/tachyons.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/lois-style.css" type="text/css" />
+
+    <!--- Javascript on page load
+	============================================= -->
+    <script type="text/javascript">
+
+    </script>
+    <!-- Document Title
+	============================================= -->
+    <title>Meta-Flexibility</title>
+
+</head>
+
+<body>
+    <noscript>
+        <p>Javascript has been disabled in your browser.</p>
+        <p>In order to complete this study, you must enable JavaScript.</p>
+        <p>Here are <a href="https://www.enable-javascript.com/">instructions on how to enable JavaScript in your web browser</a>.</p>
+    </noscript>
+    <header id='mal-header'>
+        <img style="max-height: 150px" id='mal-logo' src='images/logo3.png' alt='logo for mind at large lab' />
+    </header>
+
+    <div id='info-consent-letter'>
+        <p><b>Title of research study:</b> Investigating cognitive flexibility</p>
+        <p><b>Key Information</b></p>
+        <p>This consent form asks you to take part in a research study. This MTurk task is research being conducted by the Egner Lab in the Center for Cognitive Neuroscience and Duke University. 
+        </p>
+        <p><b>Purpose:</b>The purpose of this study is to find out more about how people switch between different task rules. We expect about 10 minutes to go through the instructions and practice. The main experiment will not exceed a maximum of 20 minutes. If you choose to take part in this study, you will be completing a task that involves matching up different visual images (different-colored shapes on playing cards). In particular, you will be asked to try and learn different rules for matching playing cards to each other, based on feedback (whether you made the correct choice or not). We ask that you complete this task as accurately as you are able to. We will also ask you common demographic questions about yourself. </p>
+        <p>This study is completely voluntary and you can withdraw from this study at any time by closing your Internet browser window. </p>
+        <p>You will receive $2.50 plus additional rewards for your participation. We will screen your responses prior to compensation. If you do not complete the task, or we feel that you completed it to an unsatisfactory standard (i.e. you do not follow the instructions), you will not be compensated. You will need to acheive at least 65% accuracy to be compensated.</p>
+         <p>At the end of the study, you’ll receive a confirmation code that you must enter into Mechanical Turk in order to receive payment.</p>
+        <p><b>How your confidentiality will be maintained:</b>Amazon Mechanical Turk will provide us, the researchers, only with your responses. We will not have access to your personal information. </p>
+        <p><b>Benefits and Risks:</b> There are no expected risks or benefits to you for participating in this research study.  </p>
+        <p><b>Contact information:</b> If you have any questions at this time or during the experiment, please feel free to ask. If questions arise after the experiment, you may contact the primary investigator, Tobias Egner (tobias.egner@duke.edu or 919-684-1034). You may also contact Human Subjects Protection at campusirb@duke.edu for questions about your rights as a research subject. </p>
+        <hr>
+        <p>By clicking on the “<b>I Agree to Participate</b>” button below, you indicate that you are 18 years of age or older, that you voluntarily agree to participate in this study and that you understand the information in this consent form. You have not waived any legal rights you would otherwise have as a participant in a research study.</p>
+        
+    </div>
+
+    <div id='decline-to-participate'>
+        <p>You have declined to participate at this time.</p>
+        <p>If you change your mind, simply reload this webpage.</p>
+    </div>
+    <button id='no-consent-btn' class='consent-btn' style="display: inline; visibility: visible">I do not agree to participate</button>
+    <button id='yes-consent-btn' class='consent-btn' style="display: inline; visibility: visible"><b>I agree to participate</b></button>
+
+    <!-- Javascript before page load
+    ============================================== -->
+    <script type="text/javascript" src="js/common/mTurk.js"></script>
+    <!-- custom JS -->
+    <script>
+        document.querySelector("#info-consent-letter").style.display = "block"
+        document.querySelector("#info-consent-letter").style.visibility = "visible"
+
+
+        document.querySelector("#no-consent-btn").addEventListener("click",
+            function() {
+                document.querySelector("#info-consent-letter").style.display = "none";
+                document.querySelector("#decline-to-participate").style.display = "block";
+                document.querySelector("#decline-to-participate").style.visibility = "visible";
+                document.querySelector("#no-consent-btn").style.display = "none";
+                document.querySelector("#yes-consent-btn").style.display = "none";
+            });
+
+
+        document.querySelector("#yes-consent-btn").addEventListener("click", function() {
+            let mt = mTurk.turkInfo()
+            window.open("task.html?" + "workerid=" + mt.workerId + "&hitid=" + mt.hitId + "&assid=" + mt.assignmentId , "_self");
+        });
+
+      
+
+    </script>
+</body>
