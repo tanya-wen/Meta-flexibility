@@ -98,68 +98,108 @@ loo_fit_RW
 
 alpha_mu <- rstan::extract(model_fit_RW, pars = 'alpha_mu', permuted = TRUE)$alpha_mu
 # Experiment 1: compare learning phase between groups
-sum(alpha_mu[ ,1,1,1] < alpha_mu[ ,1,2,1], na.rm = TRUE) / 3400 * 100
+sum(alpha_mu[ ,1,2,1] > alpha_mu[ ,1,1,1], na.rm = TRUE) / 3400 * 100
+sum(alpha_mu[ ,1,2,1] - alpha_mu[ ,1,1,1]) / 3400
+quantile(alpha_mu[ ,1,2,1] - alpha_mu[ ,1,1,1],probs=c(.025,.975))
 # Experiment 1: compare transfer phase between groups
-sum(alpha_mu[ ,2,1,1] < alpha_mu[ ,2,2,1], na.rm = TRUE) / 3400 * 100
+sum(alpha_mu[ ,2,2,1] > alpha_mu[ ,2,1,1], na.rm = TRUE) / 3400 * 100
+sum(alpha_mu[ ,2,2,1] - alpha_mu[ ,2,1,1]) / 3400
+quantile(alpha_mu[ ,2,2,1] - alpha_mu[ ,2,1,1],probs=c(.025,.975))
 # Experiment 2: compare learning phase between groups
-sum(alpha_mu[ ,1,1,2] < alpha_mu[ ,1,2,2], na.rm = TRUE) / 3400 * 100
+sum(alpha_mu[ ,1,2,2] > alpha_mu[ ,1,1,2], na.rm = TRUE) / 3400 * 100
+sum(alpha_mu[ ,1,2,2] - alpha_mu[ ,1,1,2]) / 3400
+quantile(alpha_mu[ ,1,2,2] - alpha_mu[ ,1,1,2],probs=c(.025,.975))
 # Experiment 2: compare transfer phase between groups
-sum(alpha_mu[ ,2,1,2] < alpha_mu[ ,2,2,2], na.rm = TRUE) / 3400 * 100
+sum(alpha_mu[ ,2,2,2] > alpha_mu[ ,2,1,2], na.rm = TRUE) / 3400 * 100
+sum(alpha_mu[ ,2,2,2] - alpha_mu[ ,2,1,2]) / 3400
+quantile(alpha_mu[ ,2,2,2] - alpha_mu[ ,2,1,2],probs=c(.025,.975))
 # Experiment 3: compare learning phase between groups
-sum(alpha_mu[ ,1,1,3] < alpha_mu[ ,1,2,3], na.rm = TRUE) / 3400 * 100
+sum(alpha_mu[ ,1,2,3] > alpha_mu[ ,1,1,3], na.rm = TRUE) / 3400 * 100
+sum(alpha_mu[ ,1,2,3] - alpha_mu[ ,1,1,3]) / 3400
+quantile(alpha_mu[ ,1,2,3] - alpha_mu[ ,1,1,3],probs=c(.025,.975))
 # Experiment 3: compare transfer phase between groups
-sum(alpha_mu[ ,2,1,3] < alpha_mu[ ,2,2,3], na.rm = TRUE) / 3400 * 100
+sum(alpha_mu[ ,2,2,3] > alpha_mu[ ,2,1,3], na.rm = TRUE) / 3400 * 100
+sum(alpha_mu[ ,2,2,3] - alpha_mu[ ,2,1,3]) / 3400
+quantile(alpha_mu[ ,2,2,3] - alpha_mu[ ,2,1,3],probs=c(.025,.975))
 
 # ANOVA-like analysis (only for transfer phase)
 # Experiment x group interaction
 # Exp 1 vs Exp 2
 sum((alpha_mu[ ,2,2,1] - alpha_mu[ ,2,1,1]) > (alpha_mu[ ,2,2,2] - alpha_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100
+sum((alpha_mu[ ,2,2,1] - alpha_mu[ ,2,1,1]) > (alpha_mu[ ,2,2,2] - alpha_mu[ ,2,1,2])) / 3400
+quantile((alpha_mu[ ,2,2,1] - alpha_mu[ ,2,1,1]) > (alpha_mu[ ,2,2,2] - alpha_mu[ ,2,1,2]), probs=c(.025,.975))
 # Exp 1 vs Exp 3
 sum((alpha_mu[ ,2,2,1] - alpha_mu[ ,2,1,1]) > (alpha_mu[ ,2,2,3] - alpha_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
+sum((alpha_mu[ ,2,2,1] - alpha_mu[ ,2,1,1]) > (alpha_mu[ ,2,2,3] - alpha_mu[ ,2,1,3])) / 3400
+quantile((alpha_mu[ ,2,2,1] - alpha_mu[ ,2,1,1]) > (alpha_mu[ ,2,2,3] - alpha_mu[ ,2,1,3]), probs=c(.025,.975))
 # Exp 2 vs Exp 3
 sum((alpha_mu[ ,2,2,2] - alpha_mu[ ,2,1,2]) > (alpha_mu[ ,2,2,3] - alpha_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
+sum((alpha_mu[ ,2,2,2] - alpha_mu[ ,2,1,2]) > (alpha_mu[ ,2,2,3] - alpha_mu[ ,2,1,3])) / 3400
+quantile((alpha_mu[ ,2,2,2] - alpha_mu[ ,2,1,2]) > (alpha_mu[ ,2,2,3] - alpha_mu[ ,2,1,3]), probs=c(.025,.975))
 # Main effect of experiment
 # Exp 1 vs Exp 2
 sum((alpha_mu[ ,2,2,1] + alpha_mu[ ,2,1,1]) > (alpha_mu[ ,2,2,2] + alpha_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100
+sum((alpha_mu[ ,2,2,1] + alpha_mu[ ,2,1,1]) > (alpha_mu[ ,2,2,2] + alpha_mu[ ,2,1,2])) / 3400
+quantile((alpha_mu[ ,2,2,1] + alpha_mu[ ,2,1,1]) > (alpha_mu[ ,2,2,2] + alpha_mu[ ,2,1,2]), probs=c(.025,.975))
 # Exp 1 vs Exp 3
 sum((alpha_mu[ ,2,2,1] + alpha_mu[ ,2,1,1]) > (alpha_mu[ ,2,2,3] + alpha_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
+sum((alpha_mu[ ,2,2,1] + alpha_mu[ ,2,1,1]) > (alpha_mu[ ,2,2,3] + alpha_mu[ ,2,1,3])) / 3400
+quantile((alpha_mu[ ,2,2,1] + alpha_mu[ ,2,1,1]) > (alpha_mu[ ,2,2,3] + alpha_mu[ ,2,1,3]), probs=c(.025,.975))
 # Exp 2 vs Exp 3
 sum((alpha_mu[ ,2,2,2] + alpha_mu[ ,2,1,2]) > (alpha_mu[ ,2,2,3] + alpha_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
+sum((alpha_mu[ ,2,2,2] + alpha_mu[ ,2,1,2]) > (alpha_mu[ ,2,2,3] + alpha_mu[ ,2,1,3])) / 3400
+quantile((alpha_mu[ ,2,2,2] + alpha_mu[ ,2,1,2]) > (alpha_mu[ ,2,2,3] + alpha_mu[ ,2,1,3]), probs=c(.025,.975))
 # Main effect of group
 # high vs low
 sum((alpha_mu[ ,2,2,1] + alpha_mu[ ,2,2,2] + alpha_mu[ ,2,2,3]) > 
       (alpha_mu[ ,2,1,1] + alpha_mu[ ,2,1,2] + alpha_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
+sum((alpha_mu[ ,2,2,1] + alpha_mu[ ,2,2,2] + alpha_mu[ ,2,2,3]) > 
+      (alpha_mu[ ,2,1,1] + alpha_mu[ ,2,1,2] + alpha_mu[ ,2,1,3])) / 3400
+quantile((alpha_mu[ ,2,2,1] + alpha_mu[ ,2,2,2] + alpha_mu[ ,2,2,3]) > 
+           (alpha_mu[ ,2,1,1] + alpha_mu[ ,2,1,2] + alpha_mu[ ,2,1,3]), probs=c(.025,.975))
 
 
 
 beta_mu <- rstan::extract(model_fit_RW, pars = 'beta_mu', permuted = TRUE)$beta_mu
 # Experiment 1: compare learning phase between groups
-sum(beta_mu[ ,1,1,1] < beta_mu[ ,1,2,1], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,1,2,1] > beta_mu[ ,1,1,1], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) / 3400
+quantile(beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1],probs=c(.025,.975))
 # Experiment 1: compare transfer phase between groups
-sum(beta_mu[ ,2,1,1] < beta_mu[ ,2,2,1], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,2,2,1] > beta_mu[ ,2,1,1], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) / 3400
+quantile(beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1],probs=c(.025,.975))
 # Experiment 2: compare learning phase between groups
-sum(beta_mu[ ,1,1,2] < beta_mu[ ,1,2,2], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,1,2,2] > beta_mu[ ,1,1,2], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) / 3400
+quantile(beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2],probs=c(.025,.975))
 # Experiment 2: compare transfer phase between groups
-sum(beta_mu[ ,2,1,2] < beta_mu[ ,2,2,2], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,2,2,2] > beta_mu[ ,2,1,2], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) / 3400
+quantile(beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2],probs=c(.025,.975))
 # Experiment 3: compare learning phase between groups
-sum(beta_mu[ ,1,1,3] < beta_mu[ ,1,2,3], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,1,2,3] > beta_mu[ ,1,1,3], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) / 3400
+quantile(beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3],probs=c(.025,.975))
 # Experiment 3: compare transfer phase between groups
-sum(beta_mu[ ,2,1,3] < beta_mu[ ,2,2,3], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,2,2,3] > beta_mu[ ,2,1,3], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]) / 3400
+quantile(beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3],probs=c(.025,.975))
 
 # ANOVA-like analysis (only for transfer phase)
 # Experiment x group x phase
 # Exp 1 vs Exp 2
+sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) > (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]), na.rm = TRUE) / 3400 * 100 #experiment x group (in learning phase)
 sum((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) > (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100 #experiment x group (in transfer phase)
-sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 # Exp 1 vs Exp 3
+sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) > (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in learning phase)
 sum((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) > (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in transfer phase)
-sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 # Exp 1 vs Exp 2
+sum(((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 sum((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) > (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in learning phase)
 sum((beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) > (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in transfer phase)
-sum(((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 # Main effect of experiment
 # Exp 1 vs Exp 2
 sum((beta_mu[ ,1,2,1] + beta_mu[ ,2,2,1] + beta_mu[ ,1,1,1] + beta_mu[ ,2,1,1]) > (beta_mu[ ,1,2,2] + beta_mu[ ,2,2,2] + beta_mu[ ,1,1,2] + beta_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100
@@ -185,6 +225,7 @@ sum((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3] +
        beta_mu[ ,1,1,1] + beta_mu[ ,1,1,2] + beta_mu[ ,1,1,3]) > 
       (beta_mu[ ,2,2,1] + beta_mu[ ,2,2,2] + beta_mu[ ,2,2,3] +
          beta_mu[ ,2,1,1] + beta_mu[ ,2,1,2] + beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
+
 
 
 # -------------------------------- model fitting (Two-Rates) -------------------------------------#
@@ -213,103 +254,207 @@ loo_fit_2R
 alpha_P_mu <- rstan::extract(model_fit_2R, pars = 'alpha_P_mu', permuted = TRUE)$alpha_P_mu
 alpha_N_mu <- rstan::extract(model_fit_2R, pars = 'alpha_N_mu', permuted = TRUE)$alpha_N_mu
 # Experiment 1: compare learning phase between groups
-sum((alpha_P_mu[ ,1,1,1] - alpha_P_mu[ ,1,2,1]) < (alpha_N_mu[ ,1,1,1] - alpha_N_mu[ ,1,2,1]), na.rm = TRUE) / 3400 * 100
-sum((alpha_P_mu[ ,1,1,1] + alpha_P_mu[ ,1,2,1]) < (alpha_N_mu[ ,1,1,1] + alpha_N_mu[ ,1,2,1]), na.rm = TRUE) / 3400 * 100
-sum((alpha_P_mu[ ,1,1,1] + alpha_N_mu[ ,1,1,1]) < (alpha_P_mu[ ,1,2,1] + alpha_N_mu[ ,1,2,1]), na.rm = TRUE) / 3400 * 100
-sum(alpha_P_mu[ ,1,1,1] < alpha_P_mu[ ,1,2,1], na.rm = TRUE) / 3400 * 100
-sum(alpha_N_mu[ ,1,1,1] < alpha_N_mu[ ,1,2,1], na.rm = TRUE) / 3400 * 100
+sum((alpha_N_mu[ ,1,2,1] - alpha_N_mu[ ,1,1,1]) > (alpha_P_mu[ ,1,2,1] - alpha_P_mu[ ,1,1,1]), na.rm = TRUE) / 3400 * 100 # interaction of group x feedback
+sum((alpha_N_mu[ ,1,2,1] - alpha_N_mu[ ,1,1,1]) - (alpha_P_mu[ ,1,2,1] - alpha_P_mu[ ,1,1,1])) / 3400
+quantile((alpha_N_mu[ ,1,2,1] - alpha_N_mu[ ,1,1,1]) - (alpha_P_mu[ ,1,2,1] - alpha_P_mu[ ,1,1,1]), probs=c(.025,.975))
+sum((alpha_N_mu[ ,1,2,1] + alpha_N_mu[ ,1,1,1]) > (alpha_P_mu[ ,1,2,1] + alpha_P_mu[ ,1,1,1]), na.rm = TRUE) / 3400 * 100 # main effect of feedback
+sum((alpha_N_mu[ ,1,2,1] + alpha_N_mu[ ,1,1,1]) - (alpha_P_mu[ ,1,2,1] + alpha_P_mu[ ,1,1,1])) / 3400
+quantile((alpha_N_mu[ ,1,2,1] + alpha_N_mu[ ,1,1,1]) - (alpha_P_mu[ ,1,2,1] + alpha_P_mu[ ,1,1,1]), probs=c(.025,.975))
+sum((alpha_N_mu[ ,1,2,1] + alpha_P_mu[ ,1,2,1]) > (alpha_N_mu[ ,1,1,1] + alpha_P_mu[ ,1,1,1]), na.rm = TRUE) / 3400 * 100 # main effect of group
+sum((alpha_N_mu[ ,1,2,1] + alpha_P_mu[ ,1,2,1]) - (alpha_N_mu[ ,1,1,1] + alpha_P_mu[ ,1,1,1])) / 3400
+quantile((alpha_N_mu[ ,1,2,1] + alpha_P_mu[ ,1,2,1]) - (alpha_N_mu[ ,1,1,1] + alpha_P_mu[ ,1,1,1]), probs=c(.025,.975))
+sum(alpha_P_mu[ ,1,2,1] > alpha_P_mu[ ,1,1,1], na.rm = TRUE) / 3400 * 100 # high vs low (positive feedback)
+sum(alpha_P_mu[ ,1,2,1] - alpha_P_mu[ ,1,1,1]) / 3400
+quantile(alpha_P_mu[ ,1,2,1] - alpha_P_mu[ ,1,1,1], probs=c(.025,.975))
+sum(alpha_N_mu[ ,1,2,1] > alpha_N_mu[ ,1,1,1], na.rm = TRUE) / 3400 * 100 # high vs low (negative feedback)
+sum(alpha_N_mu[ ,1,2,1] - alpha_N_mu[ ,1,1,1]) / 3400
+quantile(alpha_N_mu[ ,1,2,1] - alpha_N_mu[ ,1,1,1], probs=c(.025,.975))
 # Experiment 1: compare transfer phase between groups
-sum((alpha_P_mu[ ,2,1,1] - alpha_P_mu[ ,2,2,1]) < (alpha_N_mu[ ,2,1,1] - alpha_N_mu[ ,2,2,1]), na.rm = TRUE) / 3400 * 100
-sum((alpha_P_mu[ ,2,1,1] + alpha_P_mu[ ,2,2,1]) < (alpha_N_mu[ ,2,1,1] + alpha_N_mu[ ,2,2,1]), na.rm = TRUE) / 3400 * 100
-sum((alpha_P_mu[ ,2,1,1] + alpha_N_mu[ ,2,1,1]) < (alpha_P_mu[ ,2,2,1] + alpha_N_mu[ ,2,2,1]), na.rm = TRUE) / 3400 * 100
-sum(alpha_P_mu[ ,2,1,1] < alpha_P_mu[ ,2,2,1], na.rm = TRUE) / 3400 * 100
-sum(alpha_N_mu[ ,2,1,1] < alpha_N_mu[ ,2,2,1], na.rm = TRUE) / 3400 * 100
+sum((alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1]) > (alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]), na.rm = TRUE) / 3400 * 100 # interaction of group x feedback
+sum((alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1]) - (alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1])) / 3400
+quantile((alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1]) - (alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]), probs=c(.025,.975))
+sum((alpha_N_mu[ ,2,2,1] + alpha_N_mu[ ,2,1,1]) > (alpha_P_mu[ ,2,2,1] + alpha_P_mu[ ,2,1,1]), na.rm = TRUE) / 3400 * 100 # main effect of feedback
+sum((alpha_N_mu[ ,2,2,1] + alpha_N_mu[ ,2,1,1]) - (alpha_P_mu[ ,2,2,1] + alpha_P_mu[ ,2,1,1])) / 3400
+quantile((alpha_N_mu[ ,2,2,1] + alpha_N_mu[ ,2,1,1]) - (alpha_P_mu[ ,2,2,1] + alpha_P_mu[ ,2,1,1]), probs=c(.025,.975))
+sum((alpha_N_mu[ ,2,2,1] + alpha_P_mu[ ,2,2,1]) > (alpha_N_mu[ ,2,1,1] + alpha_P_mu[ ,2,1,1]), na.rm = TRUE) / 3400 * 100 # main effect of group
+sum((alpha_N_mu[ ,2,2,1] + alpha_P_mu[ ,2,2,1]) - (alpha_N_mu[ ,2,1,1] + alpha_P_mu[ ,2,1,1])) / 3400
+quantile((alpha_N_mu[ ,2,2,1] + alpha_P_mu[ ,2,2,1]) - (alpha_N_mu[ ,2,1,1] + alpha_P_mu[ ,2,1,1]), probs=c(.025,.975))
+sum(alpha_P_mu[ ,2,2,1] > alpha_P_mu[ ,2,1,1], na.rm = TRUE) / 3400 * 100 # high vs low (positive feedback)
+sum(alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) / 3400
+quantile(alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1], probs=c(.025,.975))
+sum(alpha_N_mu[ ,2,2,1] > alpha_N_mu[ ,2,1,1], na.rm = TRUE) / 3400 * 100 # high vs low (negative feedback)
+sum(alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1]) / 3400
+quantile(alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1], probs=c(.025,.975))
 # Experiment 2: compare learning phase between groups
-sum((alpha_P_mu[ ,1,1,2] - alpha_P_mu[ ,1,2,2]) < (alpha_N_mu[ ,1,1,2] - alpha_N_mu[ ,1,2,2]), na.rm = TRUE) / 3400 * 100
-sum((alpha_P_mu[ ,1,1,2] + alpha_P_mu[ ,1,2,2]) < (alpha_N_mu[ ,1,1,2] + alpha_N_mu[ ,1,2,2]), na.rm = TRUE) / 3400 * 100
-sum((alpha_P_mu[ ,1,1,2] + alpha_N_mu[ ,1,1,2]) < (alpha_P_mu[ ,1,2,2] + alpha_N_mu[ ,1,2,2]), na.rm = TRUE) / 3400 * 100
-sum(alpha_P_mu[ ,1,1,2] < alpha_P_mu[ ,1,2,2], na.rm = TRUE) / 3400 * 100
-sum(alpha_N_mu[ ,1,1,2] < alpha_N_mu[ ,1,2,2], na.rm = TRUE) / 3400 * 100
+sum((alpha_N_mu[ ,1,2,2] - alpha_N_mu[ ,1,1,2]) > (alpha_P_mu[ ,1,2,2] - alpha_P_mu[ ,1,1,2]), na.rm = TRUE) / 3400 * 100 # interaction of group x feedback
+sum((alpha_N_mu[ ,1,2,2] - alpha_N_mu[ ,1,1,2]) - (alpha_P_mu[ ,1,2,2] - alpha_P_mu[ ,1,1,2])) / 3400
+quantile((alpha_N_mu[ ,1,2,2] - alpha_N_mu[ ,1,1,2]) - (alpha_P_mu[ ,1,2,2] - alpha_P_mu[ ,1,1,2]), probs=c(.025,.975))
+sum((alpha_N_mu[ ,1,2,2] + alpha_N_mu[ ,1,1,2]) > (alpha_P_mu[ ,1,2,2] + alpha_P_mu[ ,1,1,2]), na.rm = TRUE) / 3400 * 100 # main effect of feedback
+sum((alpha_N_mu[ ,1,2,2] + alpha_N_mu[ ,1,1,2]) - (alpha_P_mu[ ,1,2,2] + alpha_P_mu[ ,1,1,2])) / 3400
+quantile((alpha_N_mu[ ,1,2,2] + alpha_N_mu[ ,1,1,2]) - (alpha_P_mu[ ,1,2,2] + alpha_P_mu[ ,1,1,2]), probs=c(.025,.975))
+sum((alpha_N_mu[ ,1,2,2] + alpha_P_mu[ ,1,2,2]) > (alpha_N_mu[ ,1,1,2] + alpha_P_mu[ ,1,1,2]), na.rm = TRUE) / 3400 * 100 # main effect of group
+sum((alpha_N_mu[ ,1,2,2] + alpha_P_mu[ ,1,2,2]) - (alpha_N_mu[ ,1,1,2] + alpha_P_mu[ ,1,1,2])) / 3400
+quantile((alpha_N_mu[ ,1,2,2] + alpha_P_mu[ ,1,2,2]) - (alpha_N_mu[ ,1,1,2] + alpha_P_mu[ ,1,1,2]), probs=c(.025,.975))
+sum(alpha_P_mu[ ,1,2,2] > alpha_P_mu[ ,1,1,2], na.rm = TRUE) / 3400 * 100 # high vs low (positive feedback)
+sum(alpha_P_mu[ ,1,2,2] - alpha_P_mu[ ,1,1,2]) / 3400
+quantile(alpha_P_mu[ ,1,2,2] - alpha_P_mu[ ,1,1,2], probs=c(.025,.975))
+sum(alpha_N_mu[ ,1,2,2] > alpha_N_mu[ ,1,1,2], na.rm = TRUE) / 3400 * 100 # high vs low (negative feedback)
+sum(alpha_N_mu[ ,1,2,2] - alpha_N_mu[ ,1,1,2]) / 3400
+quantile(alpha_N_mu[ ,1,2,2] - alpha_N_mu[ ,1,1,2], probs=c(.025,.975))
 # Experiment 2: compare transfer phase between groups
-sum((alpha_P_mu[ ,2,1,2] - alpha_P_mu[ ,2,2,2]) < (alpha_N_mu[ ,2,1,2] - alpha_N_mu[ ,2,2,2]), na.rm = TRUE) / 3400 * 100
-sum((alpha_P_mu[ ,2,1,2] + alpha_P_mu[ ,2,2,2]) < (alpha_N_mu[ ,2,1,2] + alpha_N_mu[ ,2,2,2]), na.rm = TRUE) / 3400 * 100
-sum((alpha_P_mu[ ,2,1,2] + alpha_N_mu[ ,2,1,2]) < (alpha_P_mu[ ,2,2,2] + alpha_N_mu[ ,2,2,2]), na.rm = TRUE) / 3400 * 100
-sum(alpha_P_mu[ ,2,1,2] < alpha_P_mu[ ,2,2,2], na.rm = TRUE) / 3400 * 100
-sum(alpha_N_mu[ ,2,1,2] < alpha_N_mu[ ,2,2,2], na.rm = TRUE) / 3400 * 100
+sum((alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2]) > (alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100 # interaction of group x feedback
+sum((alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2]) - (alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2])) / 3400
+quantile((alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2]) - (alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]), probs=c(.025,.975))
+sum((alpha_N_mu[ ,2,2,2] + alpha_N_mu[ ,2,1,2]) > (alpha_P_mu[ ,2,2,2] + alpha_P_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100 # main effect of feedback
+sum((alpha_N_mu[ ,2,2,2] + alpha_N_mu[ ,2,1,2]) - (alpha_P_mu[ ,2,2,2] + alpha_P_mu[ ,2,1,2])) / 3400
+quantile((alpha_N_mu[ ,2,2,2] + alpha_N_mu[ ,2,1,2]) - (alpha_P_mu[ ,2,2,2] + alpha_P_mu[ ,2,1,2]), probs=c(.025,.975))
+sum((alpha_N_mu[ ,2,2,2] + alpha_P_mu[ ,2,2,2]) > (alpha_N_mu[ ,2,1,2] + alpha_P_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100 # main effect of group
+sum((alpha_N_mu[ ,2,2,2] + alpha_P_mu[ ,2,2,2]) - (alpha_N_mu[ ,2,1,2] + alpha_P_mu[ ,2,1,2])) / 3400
+quantile((alpha_N_mu[ ,2,2,2] + alpha_P_mu[ ,2,2,2]) - (alpha_N_mu[ ,2,1,2] + alpha_P_mu[ ,2,1,2]), probs=c(.025,.975))
+sum(alpha_P_mu[ ,2,2,2] > alpha_P_mu[ ,2,1,2], na.rm = TRUE) / 3400 * 100 # high vs low (positive feedback)
+sum(alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]) / 3400
+quantile(alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2], probs=c(.025,.975))
+sum(alpha_N_mu[ ,2,2,2] > alpha_N_mu[ ,2,1,2], na.rm = TRUE) / 3400 * 100 # high vs low (negative feedback)
+sum(alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2]) / 3400
+quantile(alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2], probs=c(.025,.975))
 # Experiment 3: compare learning phase between groups
-sum((alpha_P_mu[ ,1,1,3] - alpha_P_mu[ ,1,2,3]) < (alpha_N_mu[ ,1,1,3] - alpha_N_mu[ ,1,2,3]), na.rm = TRUE) / 3400 * 100
-sum((alpha_P_mu[ ,1,1,3] + alpha_P_mu[ ,1,2,3]) < (alpha_N_mu[ ,1,1,3] + alpha_N_mu[ ,1,2,3]), na.rm = TRUE) / 3400 * 100
-sum((alpha_P_mu[ ,1,1,3] + alpha_N_mu[ ,1,1,3]) < (alpha_P_mu[ ,1,2,3] + alpha_N_mu[ ,1,2,3]), na.rm = TRUE) / 3400 * 100
-sum(alpha_P_mu[ ,1,1,3] < alpha_P_mu[ ,1,2,3], na.rm = TRUE) / 3400 * 100
-sum(alpha_N_mu[ ,1,1,3] < alpha_N_mu[ ,1,2,3], na.rm = TRUE) / 3400 * 100
+sum((alpha_N_mu[ ,1,2,3] - alpha_N_mu[ ,1,1,3]) > (alpha_P_mu[ ,1,2,3] - alpha_P_mu[ ,1,1,3]), na.rm = TRUE) / 3400 * 100 # interaction of group x feedback
+sum((alpha_N_mu[ ,1,2,3] - alpha_N_mu[ ,1,1,3]) - (alpha_P_mu[ ,1,2,3] - alpha_P_mu[ ,1,1,3])) / 3400
+quantile((alpha_N_mu[ ,1,2,3] - alpha_N_mu[ ,1,1,3]) - (alpha_P_mu[ ,1,2,3] - alpha_P_mu[ ,1,1,3]), probs=c(.025,.975))
+sum((alpha_N_mu[ ,1,2,3] + alpha_N_mu[ ,1,1,3]) > (alpha_P_mu[ ,1,2,3] + alpha_P_mu[ ,1,1,3]), na.rm = TRUE) / 3400 * 100 # main effect of feedback
+sum((alpha_N_mu[ ,1,2,3] + alpha_N_mu[ ,1,1,3]) - (alpha_P_mu[ ,1,2,3] + alpha_P_mu[ ,1,1,3])) / 3400
+quantile((alpha_N_mu[ ,1,2,3] + alpha_N_mu[ ,1,1,3]) - (alpha_P_mu[ ,1,2,3] + alpha_P_mu[ ,1,1,3]), probs=c(.025,.975))
+sum((alpha_N_mu[ ,1,2,3] + alpha_P_mu[ ,1,2,3]) > (alpha_N_mu[ ,1,1,3] + alpha_P_mu[ ,1,1,3]), na.rm = TRUE) / 3400 * 100 # main effect of group
+sum((alpha_N_mu[ ,1,2,3] + alpha_P_mu[ ,1,2,3]) - (alpha_N_mu[ ,1,1,3] + alpha_P_mu[ ,1,1,3])) / 3400
+quantile((alpha_N_mu[ ,1,2,3] + alpha_P_mu[ ,1,2,3]) - (alpha_N_mu[ ,1,1,3] + alpha_P_mu[ ,1,1,3]), probs=c(.025,.975))
+sum(alpha_P_mu[ ,1,2,3] > alpha_P_mu[ ,1,1,3], na.rm = TRUE) / 3400 * 100 # high vs low (positive feedback)
+sum(alpha_P_mu[ ,1,2,3] - alpha_P_mu[ ,1,1,3]) / 3400
+quantile(alpha_P_mu[ ,1,2,3] - alpha_P_mu[ ,1,1,3], probs=c(.025,.975))
+sum(alpha_N_mu[ ,1,2,3] > alpha_N_mu[ ,1,1,3], na.rm = TRUE) / 3400 * 100 # high vs low (negative feedback)
+sum(alpha_N_mu[ ,1,2,3] - alpha_N_mu[ ,1,1,3]) / 3400
+quantile(alpha_N_mu[ ,1,2,3] - alpha_N_mu[ ,1,1,3], probs=c(.025,.975))
 # Experiment 3: compare transfer phase between groups
-sum((alpha_P_mu[ ,2,1,3] - alpha_P_mu[ ,2,2,3]) < (alpha_N_mu[ ,2,1,3] - alpha_N_mu[ ,2,2,3]), na.rm = TRUE) / 3400 * 100
-sum((alpha_P_mu[ ,2,1,3] + alpha_P_mu[ ,2,2,3]) < (alpha_N_mu[ ,2,1,3] + alpha_N_mu[ ,2,2,3]), na.rm = TRUE) / 3400 * 100
-sum((alpha_P_mu[ ,2,1,3] + alpha_N_mu[ ,2,1,3]) < (alpha_P_mu[ ,2,2,3] + alpha_N_mu[ ,2,2,3]), na.rm = TRUE) / 3400 * 100
-sum(alpha_P_mu[ ,2,1,3] < alpha_P_mu[ ,2,2,3], na.rm = TRUE) / 3400 * 100
-sum(alpha_N_mu[ ,2,1,3] < alpha_N_mu[ ,2,2,3], na.rm = TRUE) / 3400 * 100
+sum((alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3]) > (alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 # interaction of group x feedback
+sum((alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3]) - (alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3])) / 3400
+quantile((alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3]) - (alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]), probs=c(.025,.975))
+sum((alpha_N_mu[ ,2,2,3] + alpha_N_mu[ ,2,1,3]) > (alpha_P_mu[ ,2,2,3] + alpha_P_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 # main effect of feedback
+sum((alpha_N_mu[ ,2,2,3] + alpha_N_mu[ ,2,1,3]) - (alpha_P_mu[ ,2,2,3] + alpha_P_mu[ ,2,1,3])) / 3400
+quantile((alpha_N_mu[ ,2,2,3] + alpha_N_mu[ ,2,1,3]) - (alpha_P_mu[ ,2,2,3] + alpha_P_mu[ ,2,1,3]), probs=c(.025,.975))
+sum((alpha_N_mu[ ,2,2,3] + alpha_P_mu[ ,2,2,3]) > (alpha_N_mu[ ,2,1,3] + alpha_P_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 # main effect of group
+sum((alpha_N_mu[ ,2,2,3] + alpha_P_mu[ ,2,2,3]) - (alpha_N_mu[ ,2,1,3] + alpha_P_mu[ ,2,1,3])) / 3400
+quantile((alpha_N_mu[ ,2,2,3] + alpha_P_mu[ ,2,2,3]) - (alpha_N_mu[ ,2,1,3] + alpha_P_mu[ ,2,1,3]), probs=c(.025,.975))
+sum(alpha_P_mu[ ,2,2,3] > alpha_P_mu[ ,2,1,3], na.rm = TRUE) / 3400 * 100 # high vs low (positive feedback)
+sum(alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]) / 3400
+quantile(alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3], probs=c(.025,.975))
+sum(alpha_N_mu[ ,2,2,3] > alpha_N_mu[ ,2,1,3], na.rm = TRUE) / 3400 * 100 # high vs low (negative feedback)
+sum(alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3]) / 3400
+quantile(alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3], probs=c(.025,.975))
 
 # ANOVA-like analysis (only for transfer phase)
-# Experiment x group x reward
+# Experiment x group x feedback
 # Exp 1 vs Exp 2
-sum((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) > (alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100
-sum((alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1]) > (alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100
-sum(((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) - (alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1])) > ((alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]) - (alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2])), na.rm = TRUE) / 3400 * 100
+sum((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) > (alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100 # interaction of group x experiment (positive feedback)
+sum((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) - (alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2])) / 3400
+quantile((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) - (alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]), probs=c(.025,.975))
+sum((alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1]) > (alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100 # interaction of group x experiment (negative feedback)
+sum((alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1]) - (alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2])) / 3400
+quantile((alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1]) - (alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2]), probs=c(.025,.975))
+sum(((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) - (alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1])) > ((alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]) - (alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2])), na.rm = TRUE) / 3400 * 100 # interaction of group x experiment x feedback
+sum(((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) - (alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1])) - ((alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]) - (alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2]))) / 3400
+quantile(((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) - (alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1])) - ((alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]) - (alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2])), probs=c(.025,.975))
 # Exp 1 vs Exp 3
-sum((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) > (alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
-sum((alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1]) > (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
-sum(((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) - (alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1])) > ((alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]) - (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100
+sum((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) > (alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 # interaction of group x experiment (positive feedback)
+sum((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) - (alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3])) / 3400
+quantile((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) - (alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]), probs=c(.025,.975))
+sum((alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1]) > (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 # interaction of group x experiment (negative feedback)
+sum((alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1]) - (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3])) / 3400
+quantile((alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1]) - (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3]), probs=c(.025,.975))
+sum(((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) - (alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1])) > ((alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]) - (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 # interaction of group x experiment x feedback
+sum(((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) - (alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1])) - ((alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]) - (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3]))) / 3400
+quantile(((alpha_P_mu[ ,2,2,1] - alpha_P_mu[ ,2,1,1]) - (alpha_N_mu[ ,2,2,1] - alpha_N_mu[ ,2,1,1])) - ((alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]) - (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3])), probs=c(.025,.975))
 # Exp 2 vs Exp 3
-sum((alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]) > (alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
-sum((alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2]) > (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
-sum(((alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]) - (alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2])) > ((alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]) - (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100
+sum((alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]) > (alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 # interaction of group x experiment (positive feedback)
+sum((alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]) - (alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3])) / 3400
+quantile((alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]) - (alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]), probs=c(.025,.975))
+sum((alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2]) > (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 # interaction of group x experiment (negative feedback)
+sum((alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2]) - (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3])) / 3400
+quantile((alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2]) - (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3]), probs=c(.025,.975))
+sum(((alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]) - (alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2])) > ((alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]) - (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 # interaction of group x experiment x feedback
+sum(((alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]) - (alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2])) - ((alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]) - (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3]))) / 3400
+quantile(((alpha_P_mu[ ,2,2,2] - alpha_P_mu[ ,2,1,2]) - (alpha_N_mu[ ,2,2,2] - alpha_N_mu[ ,2,1,2])) - ((alpha_P_mu[ ,2,2,3] - alpha_P_mu[ ,2,1,3]) - (alpha_N_mu[ ,2,2,3] - alpha_N_mu[ ,2,1,3])), probs=c(.025,.975))
 # Main effect of experiment
 # Exp 1 vs Exp 2
 sum((alpha_P_mu[ ,2,2,1] + alpha_P_mu[ ,2,1,1] + alpha_N_mu[ ,2,2,1] + alpha_N_mu[ ,2,1,1]) > (alpha_P_mu[ ,2,2,2] + alpha_P_mu[ ,2,1,2] + alpha_N_mu[ ,2,2,2] + alpha_N_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100
+sum((alpha_P_mu[ ,2,2,1] + alpha_P_mu[ ,2,1,1] + alpha_N_mu[ ,2,2,1] + alpha_N_mu[ ,2,1,1]) - (alpha_P_mu[ ,2,2,2] + alpha_P_mu[ ,2,1,2] + alpha_N_mu[ ,2,2,2] + alpha_N_mu[ ,2,1,2])) / 3400
+quantile((alpha_P_mu[ ,2,2,1] + alpha_P_mu[ ,2,1,1] + alpha_N_mu[ ,2,2,1] + alpha_N_mu[ ,2,1,1]) - (alpha_P_mu[ ,2,2,2] + alpha_P_mu[ ,2,1,2] + alpha_N_mu[ ,2,2,2] + alpha_N_mu[ ,2,1,2]), probs=c(.025,.975))
 # Exp 1 vs Exp 3
 sum((alpha_P_mu[ ,2,2,1] + alpha_P_mu[ ,2,1,1] + alpha_N_mu[ ,2,2,1] + alpha_N_mu[ ,2,1,1]) > (alpha_P_mu[ ,2,2,3] + alpha_P_mu[ ,2,1,3] + alpha_N_mu[ ,2,2,3] + alpha_N_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
+sum((alpha_P_mu[ ,2,2,1] + alpha_P_mu[ ,2,1,1] + alpha_N_mu[ ,2,2,1] + alpha_N_mu[ ,2,1,1]) - (alpha_P_mu[ ,2,2,3] + alpha_P_mu[ ,2,1,3] + alpha_N_mu[ ,2,2,3] + alpha_N_mu[ ,2,1,3])) / 3400
+quantile((alpha_P_mu[ ,2,2,1] + alpha_P_mu[ ,2,1,1] + alpha_N_mu[ ,2,2,1] + alpha_N_mu[ ,2,1,1]) - (alpha_P_mu[ ,2,2,3] + alpha_P_mu[ ,2,1,3] + alpha_N_mu[ ,2,2,3] + alpha_N_mu[ ,2,1,3]), probs=c(.025,.975))
 # Exp 2 vs Exp 3
 sum((alpha_P_mu[ ,2,2,2] + alpha_P_mu[ ,2,1,2] + alpha_N_mu[ ,2,2,2] + alpha_N_mu[ ,2,1,2]) > (alpha_P_mu[ ,2,2,3] + alpha_P_mu[ ,2,1,3] + alpha_N_mu[ ,2,2,3] + alpha_N_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
+sum((alpha_P_mu[ ,2,2,2] + alpha_P_mu[ ,2,1,2] + alpha_N_mu[ ,2,2,2] + alpha_N_mu[ ,2,1,2]) - (alpha_P_mu[ ,2,2,3] + alpha_P_mu[ ,2,1,3] + alpha_N_mu[ ,2,2,3] + alpha_N_mu[ ,2,1,3])) / 3400
+quantile((alpha_P_mu[ ,2,2,2] + alpha_P_mu[ ,2,1,2] + alpha_N_mu[ ,2,2,2] + alpha_N_mu[ ,2,1,2]) - (alpha_P_mu[ ,2,2,3] + alpha_P_mu[ ,2,1,3] + alpha_N_mu[ ,2,2,3] + alpha_N_mu[ ,2,1,3]), probs=c(.025,.975))
 # Main effect of group
 # high vs low
 sum((alpha_P_mu[ ,2,2,1] + alpha_P_mu[ ,2,2,2] + alpha_P_mu[ ,2,2,3] + alpha_N_mu[ ,2,2,1] + alpha_N_mu[ ,2,2,2] + alpha_N_mu[ ,2,2,3] > 
        alpha_P_mu[ ,2,1,1] + alpha_P_mu[ ,2,1,2] + alpha_P_mu[ ,2,1,3] + alpha_N_mu[ ,2,1,1] + alpha_N_mu[ ,2,1,2] + alpha_N_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
+sum((alpha_P_mu[ ,2,2,1] + alpha_P_mu[ ,2,2,2] + alpha_P_mu[ ,2,2,3] + alpha_N_mu[ ,2,2,1] + alpha_N_mu[ ,2,2,2] + alpha_N_mu[ ,2,2,3] - 
+       alpha_P_mu[ ,2,1,1] + alpha_P_mu[ ,2,1,2] + alpha_P_mu[ ,2,1,3] + alpha_N_mu[ ,2,1,1] + alpha_N_mu[ ,2,1,2] + alpha_N_mu[ ,2,1,3])) / 3400
+quantile((alpha_P_mu[ ,2,2,1] + alpha_P_mu[ ,2,2,2] + alpha_P_mu[ ,2,2,3] + alpha_N_mu[ ,2,2,1] + alpha_N_mu[ ,2,2,2] + alpha_N_mu[ ,2,2,3] - 
+            alpha_P_mu[ ,2,1,1] + alpha_P_mu[ ,2,1,2] + alpha_P_mu[ ,2,1,3] + alpha_N_mu[ ,2,1,1] + alpha_N_mu[ ,2,1,2] + alpha_N_mu[ ,2,1,3]), probs=c(.025,.975))
 # Main effect of reward
 # positive vs negative
 sum((alpha_P_mu[ ,2,1,1] + alpha_P_mu[ ,2,1,2] + alpha_P_mu[ ,2,1,3] + alpha_P_mu[ ,2,2,1] + alpha_P_mu[ ,2,2,2] + alpha_P_mu[ ,2,2,3] > 
        alpha_N_mu[ ,2,1,1] + alpha_N_mu[ ,2,1,2] + alpha_N_mu[ ,2,1,3] + alpha_N_mu[ ,2,2,1] + alpha_N_mu[ ,2,2,2] + alpha_N_mu[ ,2,2,3]), na.rm = TRUE) / 3400 * 100
+sum((alpha_P_mu[ ,2,1,1] + alpha_P_mu[ ,2,1,2] + alpha_P_mu[ ,2,1,3] + alpha_P_mu[ ,2,2,1] + alpha_P_mu[ ,2,2,2] + alpha_P_mu[ ,2,2,3] - 
+       alpha_N_mu[ ,2,1,1] + alpha_N_mu[ ,2,1,2] + alpha_N_mu[ ,2,1,3] + alpha_N_mu[ ,2,2,1] + alpha_N_mu[ ,2,2,2] + alpha_N_mu[ ,2,2,3])) / 3400
+quantile((alpha_P_mu[ ,2,1,1] + alpha_P_mu[ ,2,1,2] + alpha_P_mu[ ,2,1,3] + alpha_P_mu[ ,2,2,1] + alpha_P_mu[ ,2,2,2] + alpha_P_mu[ ,2,2,3] - 
+            alpha_N_mu[ ,2,1,1] + alpha_N_mu[ ,2,1,2] + alpha_N_mu[ ,2,1,3] + alpha_N_mu[ ,2,2,1] + alpha_N_mu[ ,2,2,2] + alpha_N_mu[ ,2,2,3]), probs=c(.025,.975))
 
 
 
 beta_mu <- rstan::extract(model_fit_2R, pars = 'beta_mu', permuted = TRUE)$beta_mu
 # Experiment 1: compare learning phase between groups
-sum(beta_mu[ ,1,1,1] < beta_mu[ ,1,2,1], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,1,2,1] > beta_mu[ ,1,1,1], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) / 3400
+quantile(beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1],probs=c(.025,.975))
 # Experiment 1: compare transfer phase between groups
-sum(beta_mu[ ,2,1,1] < beta_mu[ ,2,2,1], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,2,2,1] > beta_mu[ ,2,1,1], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) / 3400
+quantile(beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1],probs=c(.025,.975))
 # Experiment 2: compare learning phase between groups
-sum(beta_mu[ ,1,1,2] < beta_mu[ ,1,2,2], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,1,2,2] > beta_mu[ ,1,1,2], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) / 3400
+quantile(beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2],probs=c(.025,.975))
 # Experiment 2: compare transfer phase between groups
-sum(beta_mu[ ,2,1,2] < beta_mu[ ,2,2,2], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,2,2,2] > beta_mu[ ,2,1,2], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) / 3400
+quantile(beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2],probs=c(.025,.975))
 # Experiment 3: compare learning phase between groups
-sum(beta_mu[ ,1,1,3] < beta_mu[ ,1,2,3], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,1,2,3] > beta_mu[ ,1,1,3], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) / 3400
+quantile(beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3],probs=c(.025,.975))
 # Experiment 3: compare transfer phase between groups
-sum(beta_mu[ ,2,1,3] < beta_mu[ ,2,2,3], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,2,2,3] > beta_mu[ ,2,1,3], na.rm = TRUE) / 3400 * 100
+sum(beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]) / 3400
+quantile(beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3],probs=c(.025,.975))
 
 
 # ANOVA-like analysis (only for transfer phase)
 # Experiment x group x phase
 # Exp 1 vs Exp 2
+sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) > (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]), na.rm = TRUE) / 3400 * 100 #experiment x group (in learning phase)
 sum((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) > (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100 #experiment x group (in transfer phase)
-sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 # Exp 1 vs Exp 3
+sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) > (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in learning phase)
 sum((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) > (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in transfer phase)
-sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 # Exp 1 vs Exp 2
+sum(((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 sum((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) > (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in learning phase)
 sum((beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) > (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in transfer phase)
-sum(((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 # Main effect of experiment
 # Exp 1 vs Exp 2
 sum((beta_mu[ ,1,2,1] + beta_mu[ ,2,2,1] + beta_mu[ ,1,1,1] + beta_mu[ ,2,1,1]) > (beta_mu[ ,1,2,2] + beta_mu[ ,2,2,2] + beta_mu[ ,1,1,2] + beta_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100
