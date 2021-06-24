@@ -153,9 +153,9 @@ quantile((alpha_mu[ ,2,2,2] + alpha_mu[ ,2,1,2]) > (alpha_mu[ ,2,2,3] + alpha_mu
 # high vs low
 sum((alpha_mu[ ,2,2,1] + alpha_mu[ ,2,2,2] + alpha_mu[ ,2,2,3]) > 
       (alpha_mu[ ,2,1,1] + alpha_mu[ ,2,1,2] + alpha_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
-sum((alpha_mu[ ,2,2,1] + alpha_mu[ ,2,2,2] + alpha_mu[ ,2,2,3]) > 
+sum((alpha_mu[ ,2,2,1] + alpha_mu[ ,2,2,2] + alpha_mu[ ,2,2,3]) - 
       (alpha_mu[ ,2,1,1] + alpha_mu[ ,2,1,2] + alpha_mu[ ,2,1,3])) / 3400
-quantile((alpha_mu[ ,2,2,1] + alpha_mu[ ,2,2,2] + alpha_mu[ ,2,2,3]) > 
+quantile((alpha_mu[ ,2,2,1] + alpha_mu[ ,2,2,2] + alpha_mu[ ,2,2,3]) - 
            (alpha_mu[ ,2,1,1] + alpha_mu[ ,2,1,2] + alpha_mu[ ,2,1,3]), probs=c(.025,.975))
 
 
