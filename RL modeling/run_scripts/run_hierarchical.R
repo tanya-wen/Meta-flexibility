@@ -160,7 +160,7 @@ quantile((alpha_mu[ ,2,2,1] + alpha_mu[ ,2,2,2] + alpha_mu[ ,2,2,3]) >
 
 
 
-beta_mu <- rstan::extract(model_fit_RW, pars = 'beta_mu', permuted = TRUE)$beta_mu
+beta_mu <- rstan::extract(model_fit_2R, pars = 'beta_mu', permuted = TRUE)$beta_mu
 # Experiment 1: compare learning phase between groups
 sum(beta_mu[ ,1,2,1] > beta_mu[ ,1,1,1], na.rm = TRUE) / 3400 * 100
 sum(beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) / 3400
