@@ -186,56 +186,60 @@ sum(beta_mu[ ,2,2,3] > beta_mu[ ,2,1,3], na.rm = TRUE) / 3400 * 100
 sum(beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]) / 3400
 quantile(beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3],probs=c(.025,.975))
 
+# Experiment 1: compare learning phase vs transfer phase
+sum(beta_mu[ ,1,1,1] > beta_mu[ ,2,1,1], na.rm = TRUE) / 3400 * 100 
+sum(beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1]) / 3400
+quantile(beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1],probs=c(.025,.975))
+# Experiment 2: compare learning phase vs transfer phase
+sum(beta_mu[ ,1,1,3] > beta_mu[ ,2,1,3], na.rm = TRUE) / 3400 * 100 
+sum(beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]) / 3400
+quantile(beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3],probs=c(.025,.975))
+# Experiment 3: compare learning phase vs transfer phase
+sum(beta_mu[ ,1,1,3] > beta_mu[ ,2,1,3], na.rm = TRUE) / 3400 * 100 
+sum(beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]) / 3400
+quantile(beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3],probs=c(.025,.975))
+
 # ANOVA-like analysis
 # Experiment x group x phase
 # Exp 1 vs Exp 2
 sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]))) / 3400 / 4
-quantile(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) > (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]), na.rm = TRUE) / 3400 * 100 #experiment x group (in learning phase)
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2])) / 3400 / 2
-quantile((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]),probs=c(.025,.975))
-sum((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) > (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100 #experiment x group (in transfer phase)
-sum((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) / 3400 / 2
-quantile((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1]) > (beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]), na.rm = TRUE) / 3400 * 100 #experiment x phase (high volatility group)
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1]) - (beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2])) / 3400 / 2
-quantile((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1]) - (beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,1,1]) > (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100 #experiment x phase (low volatility group)
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2])) / 3400 / 2
-quantile((beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2]),probs=c(.025,.975))
+quantile(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])),probs=c(.025,.975)) / 4
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1] + (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])), na.rm = TRUE) / 3400 * 100 #experiment x group (both phase)
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1] + (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]))) / 3400 / 4
+quantile((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1] + (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])),probs=c(.025,.975)) / 4
+quantile((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]),probs=c(.025,.975)) / 2
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1] + (beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]) + (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2])), na.rm = TRUE) / 3400 * 100 #experiment x phase (both groups)
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1] + (beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]) + (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2]))) / 3400 / 4
+quantile((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1] + (beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]) + (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2])),probs=c(.025,.975)) / 4
 # Exp 1 vs Exp 3
-sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase\
+sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]))) / 3400 / 4
-quantile(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) > (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in learning phase)
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3])) / 3400 / 2
-quantile((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]),probs=c(.025,.975))
-sum((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) > (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in transfer phase)
-sum((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])) / 3400 / 2
-quantile((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1]) > (beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]), na.rm = TRUE) / 3400 * 100 #experiment x phase (high volatility group)
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1]) - (beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3])) / 3400 / 2
-quantile((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1]) - (beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,1,1]) > (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x phase (low volatility group)
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3])) / 3400 / 2
-quantile((beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]),probs=c(.025,.975))
+quantile(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 4
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1] + (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group (both phases)
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1] + (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]))) / 3400 / 4
+quantile((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1] + (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 4
+quantile((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]),probs=c(.025,.975)) / 2
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1] + (beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]) + (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x phase (both groups)
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1] + (beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]) + (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]))) / 3400 / 4
+quantile((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1] + (beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]) + (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 4
 # Exp 2 vs Exp 3
-sum(((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase\
+sum(((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 sum(((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]))) / 3400 / 4
-quantile(((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) > (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in learning phase)
-sum((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3])) / 3400 / 2
-quantile((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]),probs=c(.025,.975))
-sum((beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) > (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in transfer phase)
-sum((beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])) / 3400 / 2
-quantile((beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]) > (beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]), na.rm = TRUE) / 3400 * 100 #experiment x phase (high volatility group)
-sum((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]) - (beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3])) / 3400 / 2
-quantile((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]) - (beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,2] - beta_mu[ ,2,1,2]) > (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x phase (low volatility group)
-sum((beta_mu[ ,1,2,2] - beta_mu[ ,2,1,2]) - (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3])) / 3400 / 2
-quantile((beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2]) - (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]),probs=c(.025,.975))
+quantile(((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 4
+sum((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2] + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group (both phases)
+sum((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2] + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]))) / 3400 / 4
+quantile((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2] + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 4
+sum((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2] + (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]) + (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x phase (both groups)
+sum((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2] + (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]) + (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]))) / 3400 / 4
+quantile((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2] + (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]) + (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 4
+# group x phase
+sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) + (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) + (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3])) > 
+      ((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #group x phase
+sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) + (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) + (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3])) - 
+      ((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]))) / 3400 / 6
+quantile(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) + (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) + (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3])) - 
+      ((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 6
 # Main effect of experiment
 # Exp 1 vs Exp 2
 sum((beta_mu[ ,1,2,1] + beta_mu[ ,2,2,1] + beta_mu[ ,1,1,1] + beta_mu[ ,2,1,1]) > (beta_mu[ ,1,2,2] + beta_mu[ ,2,2,2] + beta_mu[ ,1,1,2] + beta_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100
@@ -506,56 +510,60 @@ sum(beta_mu[ ,2,2,3] > beta_mu[ ,2,1,3], na.rm = TRUE) / 3400 * 100
 sum(beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]) / 3400
 quantile(beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3],probs=c(.025,.975))
 
+# Experiment 1: compare learning phase vs transfer phase
+sum(beta_mu[ ,1,1,1] > beta_mu[ ,2,1,1], na.rm = TRUE) / 3400 * 100 
+sum(beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1]) / 3400
+quantile(beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1],probs=c(.025,.975))
+# Experiment 2: compare learning phase vs transfer phase
+sum(beta_mu[ ,1,1,3] > beta_mu[ ,2,1,3], na.rm = TRUE) / 3400 * 100 
+sum(beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]) / 3400
+quantile(beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3],probs=c(.025,.975))
+# Experiment 3: compare learning phase vs transfer phase
+sum(beta_mu[ ,1,1,3] > beta_mu[ ,2,1,3], na.rm = TRUE) / 3400 * 100 
+sum(beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]) / 3400
+quantile(beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3],probs=c(.025,.975))
+
 # ANOVA-like analysis
 # Experiment x group x phase
 # Exp 1 vs Exp 2
 sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]))) / 3400 / 4
-quantile(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) > (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]), na.rm = TRUE) / 3400 * 100 #experiment x group (in learning phase)
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2])) / 3400 / 2
-quantile((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]),probs=c(.025,.975))
-sum((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) > (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100 #experiment x group (in transfer phase)
-sum((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) / 3400 / 2
-quantile((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1]) > (beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]), na.rm = TRUE) / 3400 * 100 #experiment x phase (high volatility group)
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1]) - (beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2])) / 3400 / 2
-quantile((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1]) - (beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,1,1]) > (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100 #experiment x phase (low volatility group)
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2])) / 3400 / 2
-quantile((beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2]),probs=c(.025,.975))
+quantile(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])),probs=c(.025,.975)) / 4
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1] + (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])), na.rm = TRUE) / 3400 * 100 #experiment x group (both phase)
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1] + (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]))) / 3400 / 4
+quantile((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1] + (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])),probs=c(.025,.975)) / 4
+quantile((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]),probs=c(.025,.975)) / 2
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1] + (beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]) + (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2])), na.rm = TRUE) / 3400 * 100 #experiment x phase (both groups)
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1] + (beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]) + (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2]))) / 3400 / 4
+quantile((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1] + (beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]) + (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2])),probs=c(.025,.975)) / 4
 # Exp 1 vs Exp 3
-sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase\
+sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]))) / 3400 / 4
-quantile(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) > (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in learning phase)
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3])) / 3400 / 2
-quantile((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]),probs=c(.025,.975))
-sum((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) > (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in transfer phase)
-sum((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])) / 3400 / 2
-quantile((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1]) > (beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]), na.rm = TRUE) / 3400 * 100 #experiment x phase (high volatility group)
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1]) - (beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3])) / 3400 / 2
-quantile((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1]) - (beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,1,1]) > (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x phase (low volatility group)
-sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3])) / 3400 / 2
-quantile((beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]),probs=c(.025,.975))
+quantile(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) - (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 4
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1] + (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group (both phases)
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1] + (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]))) / 3400 / 4
+quantile((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1] + (beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 4
+quantile((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]),probs=c(.025,.975)) / 2
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1] + (beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]) + (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x phase (both groups)
+sum((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1] + (beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]) + (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]))) / 3400 / 4
+quantile((beta_mu[ ,1,2,1] - beta_mu[ ,2,2,1] + (beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]) + (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 4
 # Exp 2 vs Exp 3
-sum(((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase\
+sum(((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group x phase
 sum(((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]))) / 3400 / 4
-quantile(((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) > (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in learning phase)
-sum((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3])) / 3400 / 2
-quantile((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]),probs=c(.025,.975))
-sum((beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) > (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x group (in transfer phase)
-sum((beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])) / 3400 / 2
-quantile((beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]) > (beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]), na.rm = TRUE) / 3400 * 100 #experiment x phase (high volatility group)
-sum((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]) - (beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3])) / 3400 / 2
-quantile((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2]) - (beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]),probs=c(.025,.975))
-sum((beta_mu[ ,1,2,2] - beta_mu[ ,2,1,2]) > (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100 #experiment x phase (low volatility group)
-sum((beta_mu[ ,1,2,2] - beta_mu[ ,2,1,2]) - (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3])) / 3400 / 2
-quantile((beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2]) - (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]),probs=c(.025,.975))
+quantile(((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) - (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) - (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 4
+sum((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2] + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x group (both phases)
+sum((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2] + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]))) / 3400 / 4
+quantile((beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2] + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 4
+sum((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2] + (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2])) > ((beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]) + (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #experiment x phase (both groups)
+sum((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2] + (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]) + (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]))) / 3400 / 4
+quantile((beta_mu[ ,1,2,2] - beta_mu[ ,2,2,2] + (beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2])) - ((beta_mu[ ,1,2,3] - beta_mu[ ,2,2,3]) + (beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 4
+# group x phase
+sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) + (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) + (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3])) > 
+      ((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])), na.rm = TRUE) / 3400 * 100 #group x phase
+sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) + (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) + (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3])) - 
+      ((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]))) / 3400 / 6
+quantile(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) + (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) + (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3])) - 
+      ((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 6
 # Main effect of experiment
 # Exp 1 vs Exp 2
 sum((beta_mu[ ,1,2,1] + beta_mu[ ,2,2,1] + beta_mu[ ,1,1,1] + beta_mu[ ,2,1,1]) > (beta_mu[ ,1,2,2] + beta_mu[ ,2,2,2] + beta_mu[ ,1,1,2] + beta_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100
