@@ -240,6 +240,20 @@ sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) + (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2
       ((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]))) / 3400 / 6
 quantile(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) + (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) + (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3])) - 
       ((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 6
+# high vs low (learning phase)
+sum((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3]) > 
+      (beta_mu[ ,1,1,1] + beta_mu[ ,1,1,2] + beta_mu[ ,1,1,3]), na.rm = TRUE) / 3400 * 100
+sum((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3]) - 
+      (beta_mu[ ,1,1,1] + beta_mu[ ,1,1,2] + beta_mu[ ,1,1,3])) / 3400 / 3
+quantile((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3]) - 
+           (beta_mu[ ,1,1,1] + beta_mu[ ,1,1,2] + beta_mu[ ,1,1,3]),probs=c(.025,.975)) / 3
+# high vs low (transfer phase)
+sum((beta_mu[ ,2,2,1] + beta_mu[ ,2,2,2] + beta_mu[ ,2,2,3]) > 
+      (beta_mu[ ,2,1,1] + beta_mu[ ,2,1,2] + beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
+sum((beta_mu[ ,2,2,1] + beta_mu[ ,2,2,2] + beta_mu[ ,2,2,3]) - 
+      (beta_mu[ ,2,1,1] + beta_mu[ ,2,1,2] + beta_mu[ ,2,1,3])) / 3400 / 3
+quantile((beta_mu[ ,2,2,1] + beta_mu[ ,2,2,2] + beta_mu[ ,2,2,3]) - 
+           (beta_mu[ ,2,1,1] + beta_mu[ ,2,1,2] + beta_mu[ ,2,1,3]),probs=c(.025,.975)) / 3
 # Main effect of experiment
 # Exp 1 vs Exp 2
 sum((beta_mu[ ,1,2,1] + beta_mu[ ,2,2,1] + beta_mu[ ,1,1,1] + beta_mu[ ,2,1,1]) > (beta_mu[ ,1,2,2] + beta_mu[ ,2,2,2] + beta_mu[ ,1,1,2] + beta_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100
@@ -267,20 +281,6 @@ quantile((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3] +
             beta_mu[ ,2,2,1] + beta_mu[ ,2,2,2] + beta_mu[ ,2,2,3]) - 
            (beta_mu[ ,1,1,1] + beta_mu[ ,1,1,2] + beta_mu[ ,1,1,3] + 
               beta_mu[ ,2,1,1] + beta_mu[ ,2,1,2] + beta_mu[ ,2,1,3]),probs=c(.025,.975)) / 6
-# high vs low (learning phase)
-sum((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3]) > 
-      (beta_mu[ ,1,1,1] + beta_mu[ ,1,1,2] + beta_mu[ ,1,1,3]), na.rm = TRUE) / 3400 * 100
-sum((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3]) - 
-      (beta_mu[ ,1,1,1] + beta_mu[ ,1,1,2] + beta_mu[ ,1,1,3])) / 3400 / 3
-quantile((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3]) - 
-           (beta_mu[ ,1,1,1] + beta_mu[ ,1,1,2] + beta_mu[ ,1,1,3]),probs=c(.025,.975)) / 3
-# high vs low (transfer phase)
-sum((beta_mu[ ,2,2,1] + beta_mu[ ,2,2,2] + beta_mu[ ,2,2,3]) > 
-      (beta_mu[ ,2,1,1] + beta_mu[ ,2,1,2] + beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
-sum((beta_mu[ ,2,2,1] + beta_mu[ ,2,2,2] + beta_mu[ ,2,2,3]) - 
-      (beta_mu[ ,2,1,1] + beta_mu[ ,2,1,2] + beta_mu[ ,2,1,3])) / 3400 / 3
-quantile((beta_mu[ ,2,2,1] + beta_mu[ ,2,2,2] + beta_mu[ ,2,2,3]) - 
-           (beta_mu[ ,2,1,1] + beta_mu[ ,2,1,2] + beta_mu[ ,2,1,3]),probs=c(.025,.975)) / 3
 # Main effect of phase
 # learning vs transfer
 sum((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3] + 
@@ -564,6 +564,20 @@ sum(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) + (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2
       ((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3]))) / 3400 / 6
 quantile(((beta_mu[ ,1,2,1] - beta_mu[ ,1,1,1]) + (beta_mu[ ,1,2,2] - beta_mu[ ,1,1,2]) + (beta_mu[ ,1,2,3] - beta_mu[ ,1,1,3])) - 
       ((beta_mu[ ,2,2,1] - beta_mu[ ,2,1,1]) + (beta_mu[ ,2,2,2] - beta_mu[ ,2,1,2]) + (beta_mu[ ,2,2,3] - beta_mu[ ,2,1,3])),probs=c(.025,.975)) / 6
+# high vs low (learning phase)
+sum((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3]) > 
+      (beta_mu[ ,1,1,1] + beta_mu[ ,1,1,2] + beta_mu[ ,1,1,3]), na.rm = TRUE) / 3400 * 100
+sum((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3]) - 
+      (beta_mu[ ,1,1,1] + beta_mu[ ,1,1,2] + beta_mu[ ,1,1,3])) / 3400 / 3
+quantile((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3]) - 
+           (beta_mu[ ,1,1,1] + beta_mu[ ,1,1,2] + beta_mu[ ,1,1,3]),probs=c(.025,.975)) / 3
+# high vs low (transfer phase)
+sum((beta_mu[ ,2,2,1] + beta_mu[ ,2,2,2] + beta_mu[ ,2,2,3]) > 
+      (beta_mu[ ,2,1,1] + beta_mu[ ,2,1,2] + beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
+sum((beta_mu[ ,2,2,1] + beta_mu[ ,2,2,2] + beta_mu[ ,2,2,3]) - 
+      (beta_mu[ ,2,1,1] + beta_mu[ ,2,1,2] + beta_mu[ ,2,1,3])) / 3400 / 3
+quantile((beta_mu[ ,2,2,1] + beta_mu[ ,2,2,2] + beta_mu[ ,2,2,3]) - 
+           (beta_mu[ ,2,1,1] + beta_mu[ ,2,1,2] + beta_mu[ ,2,1,3]),probs=c(.025,.975)) / 3
 # Main effect of experiment
 # Exp 1 vs Exp 2
 sum((beta_mu[ ,1,2,1] + beta_mu[ ,2,2,1] + beta_mu[ ,1,1,1] + beta_mu[ ,2,1,1]) > (beta_mu[ ,1,2,2] + beta_mu[ ,2,2,2] + beta_mu[ ,1,1,2] + beta_mu[ ,2,1,2]), na.rm = TRUE) / 3400 * 100
@@ -591,20 +605,6 @@ quantile((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3] +
             beta_mu[ ,2,2,1] + beta_mu[ ,2,2,2] + beta_mu[ ,2,2,3]) - 
            (beta_mu[ ,1,1,1] + beta_mu[ ,1,1,2] + beta_mu[ ,1,1,3] + 
               beta_mu[ ,2,1,1] + beta_mu[ ,2,1,2] + beta_mu[ ,2,1,3]),probs=c(.025,.975)) / 6
-# high vs low (learning phase)
-sum((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3]) > 
-      (beta_mu[ ,1,1,1] + beta_mu[ ,1,1,2] + beta_mu[ ,1,1,3]), na.rm = TRUE) / 3400 * 100
-sum((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3]) - 
-      (beta_mu[ ,1,1,1] + beta_mu[ ,1,1,2] + beta_mu[ ,1,1,3])) / 3400 / 3
-quantile((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3]) - 
-           (beta_mu[ ,1,1,1] + beta_mu[ ,1,1,2] + beta_mu[ ,1,1,3]),probs=c(.025,.975)) / 3
-# high vs low (transfer phase)
-sum((beta_mu[ ,2,2,1] + beta_mu[ ,2,2,2] + beta_mu[ ,2,2,3]) > 
-      (beta_mu[ ,2,1,1] + beta_mu[ ,2,1,2] + beta_mu[ ,2,1,3]), na.rm = TRUE) / 3400 * 100
-sum((beta_mu[ ,2,2,1] + beta_mu[ ,2,2,2] + beta_mu[ ,2,2,3]) - 
-      (beta_mu[ ,2,1,1] + beta_mu[ ,2,1,2] + beta_mu[ ,2,1,3])) / 3400 / 3
-quantile((beta_mu[ ,2,2,1] + beta_mu[ ,2,2,2] + beta_mu[ ,2,2,3]) - 
-           (beta_mu[ ,2,1,1] + beta_mu[ ,2,1,2] + beta_mu[ ,2,1,3]),probs=c(.025,.975)) / 3
 # Main effect of phase
 # learning vs transfer
 sum((beta_mu[ ,1,2,1] + beta_mu[ ,1,2,2] + beta_mu[ ,1,2,3] + 
