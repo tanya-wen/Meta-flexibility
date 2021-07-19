@@ -191,9 +191,9 @@ sum(beta_mu[ ,1,1,1] > beta_mu[ ,2,1,1], na.rm = TRUE) / 3400 * 100
 sum(beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1]) / 3400
 quantile(beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1],probs=c(.025,.975))
 # Experiment 2: compare learning phase vs transfer phase
-sum(beta_mu[ ,1,1,3] > beta_mu[ ,2,1,3], na.rm = TRUE) / 3400 * 100 
-sum(beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]) / 3400
-quantile(beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3],probs=c(.025,.975))
+sum(beta_mu[ ,1,1,2] > beta_mu[ ,2,1,2], na.rm = TRUE) / 3400 * 100 
+sum(beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2]) / 3400
+quantile(beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2],probs=c(.025,.975))
 # Experiment 3: compare learning phase vs transfer phase
 sum(beta_mu[ ,1,1,3] > beta_mu[ ,2,1,3], na.rm = TRUE) / 3400 * 100 
 sum(beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]) / 3400
@@ -515,9 +515,9 @@ sum(beta_mu[ ,1,1,1] > beta_mu[ ,2,1,1], na.rm = TRUE) / 3400 * 100
 sum(beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1]) / 3400
 quantile(beta_mu[ ,1,1,1] - beta_mu[ ,2,1,1],probs=c(.025,.975))
 # Experiment 2: compare learning phase vs transfer phase
-sum(beta_mu[ ,1,1,3] > beta_mu[ ,2,1,3], na.rm = TRUE) / 3400 * 100 
-sum(beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]) / 3400
-quantile(beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3],probs=c(.025,.975))
+sum(beta_mu[ ,1,1,2] > beta_mu[ ,2,1,2], na.rm = TRUE) / 3400 * 100 
+sum(beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2]) / 3400
+quantile(beta_mu[ ,1,1,2] - beta_mu[ ,2,1,2],probs=c(.025,.975))
 # Experiment 3: compare learning phase vs transfer phase
 sum(beta_mu[ ,1,1,3] > beta_mu[ ,2,1,3], na.rm = TRUE) / 3400 * 100 
 sum(beta_mu[ ,1,1,3] - beta_mu[ ,2,1,3]) / 3400
