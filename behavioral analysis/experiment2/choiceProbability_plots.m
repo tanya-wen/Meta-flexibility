@@ -224,7 +224,9 @@ ranovatable = ranova(rm,'WithinModel','phase*boundary');
 %% compare 1~5 trials before rule change with 1 trial after rule change
 % accuracy over time (low-volatility)
 [tval,adj_p] = comparisons_between_bars(1:6, [sub_ChoiceAcc_low_before(low_subs,:),1-sub_ChoiceAcc_low_after(low_subs,1)])
-% accuracy over time (low-volatility)
+% accuracy over time (high-volatility)
 [tval,adj_p] = comparisons_between_bars(1:6, [sub_ChoiceAcc_high_before(high_subs,:),1-sub_ChoiceAcc_high_after(high_subs,1)])
 
-
+%% compare average 1~5 trials before rule change with 1 trial after rule change
+[H,P,CI,STATS] = ttest(mean(sub_ChoiceAcc_low_before(low_subs,:),2),1-sub_ChoiceAcc_low_after(low_subs,1))
+[H,P,CI,STATS] = ttest(mean(sub_ChoiceAcc_high_before(high_subs,:),2),1-sub_ChoiceAcc_high_after(high_subs,1))
