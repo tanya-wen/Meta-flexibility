@@ -6,7 +6,7 @@
 
 clear all; close all; clc;
 
-files = dir('C:/Users/Tanya Wen/Box/Home Folder tw260/Private/meta-flexibility/Pilots/mturk/short/version4/*.log');
+files = dir('C:/Users/Tanya Wen/Documents/GitHub/Meta-flexibility/mturk data/experiment3/*.log');
 fig_path = 'C:/Users/Tanya Wen/Box/Home Folder tw260/Private/meta-flexibility/manuscript/figures';
 
 nsubj = numel(files);
@@ -68,48 +68,37 @@ end
 low_subs = find(ismember(volatility,'low'));
 high_subs = find(ismember(volatility,'high'));
 
+bar_colors = [254,178,76; 240,59,32] / 255;
 % plot results
-figure(1); hold on
-set(gcf,'color','w')
-subplot(1,2,1); hold on
-bar_input = [mean(rC_fp_learning(low_subs)),mean(rC_fn_learning(low_subs)),mean(ri_fp_learning(low_subs)),mean(ri_fn_learning(low_subs))];
-error_input = [std(rC_fp_learning(low_subs)),std(rC_fn_learning(low_subs)),std(ri_fp_learning(low_subs)),std(ri_fn_learning(low_subs))]/sqrt(subj_ind-1);
-bar(bar_input,'FaceColor',[254, 178, 76]/255)
-errorbar(bar_input,error_input,'.k')
-ylim([0,80])
-xticks([1,2,3,4])
+bar_input = [mean(rC_fp_learning(low_subs)),mean(rC_fn_learning(low_subs)),mean(ri_fp_learning(low_subs)),mean(ri_fn_learning(low_subs));
+    mean(rC_fp_learning(high_subs)),mean(rC_fn_learning(high_subs)),mean(ri_fp_learning(high_subs)),mean(ri_fn_learning(high_subs))];
+errorbar_input = [std(rC_fp_learning(low_subs)),std(rC_fn_learning(low_subs)),std(ri_fp_learning(low_subs)),std(ri_fn_learning(low_subs));
+    std(rC_fp_learning(high_subs)),std(rC_fn_learning(high_subs)),std(ri_fp_learning(high_subs)),std(ri_fn_learning(high_subs))]/sqrt(subj_ind-1);
+[bar_xtick,hb,he] = errorbar_groups(bar_input,errorbar_input, 'bar_colors', bar_colors);
+ax = gca;
+ax.FontSize = 18;
+ax.YLim = [0, 80];
 xticklabels({'CP','CN','IP','IN'})
 ylabel('number of trials')
-subplot(1,2,2); hold on
-bar_input = [mean(rC_fp_learning(high_subs)),mean(rC_fn_learning(high_subs)),mean(ri_fp_learning(high_subs)),mean(ri_fn_learning(high_subs))];
-error_input = [std(rC_fp_learning(high_subs)),std(rC_fn_learning(high_subs)),std(ri_fp_learning(high_subs)),std(ri_fn_learning(high_subs))]/sqrt(subj_ind-1);
-bar(bar_input,'FaceColor',[240, 59, 32]/255)
-errorbar(bar_input,error_input,'.k')
-ylim([0,80])
-xticks([1,2,3,4])
-xticklabels({'CP','CN','IP','IN'})
-ylabel('number of trials')
+set(gcf,'color','w');
+legend({'low-volatility', 'high-volatility'})
 print(gcf,fullfile(fig_path,'BehavBreakdown_Exp3learning.eps'),'-depsc2','-painters');
+[H,P,CI,STATS] = ttest2(ri_fp_learning(low_subs)./ri_fn_learning(low_subs), ri_fp_learning(high_subs)./ri_fn_learning(high_subs))
+[H,P,CI,STATS] = ttest2(rC_fp_learning(low_subs)./rC_fn_learning(low_subs), rC_fp_learning(high_subs)./rC_fn_learning(high_subs))
 
-        
-figure(2); hold on
-set(gcf,'color','w')
-subplot(1,2,1); hold on
-bar_input = [mean(rC_fp_transfer(low_subs)),mean(rC_fn_transfer(low_subs)),mean(ri_fp_transfer(low_subs)),mean(ri_fn_transfer(low_subs))];
-error_input = [std(rC_fp_transfer(low_subs)),std(rC_fn_transfer(low_subs)),std(ri_fp_transfer(low_subs)),std(ri_fn_transfer(low_subs))]/sqrt(subj_ind-1);
-bar(bar_input,'FaceColor',[254, 178, 76]/255)
-errorbar(bar_input,error_input,'.k')
-ylim([0,80])
-xticks([1,2,3,4])
+bar_input = [mean(rC_fp_transfer(low_subs)),mean(rC_fn_transfer(low_subs)),mean(ri_fp_transfer(low_subs)),mean(ri_fn_transfer(low_subs));
+    mean(rC_fp_transfer(high_subs)),mean(rC_fn_transfer(high_subs)),mean(ri_fp_transfer(high_subs)),mean(ri_fn_transfer(high_subs))];
+errorbar_input = [std(rC_fp_transfer(low_subs)),std(rC_fn_transfer(low_subs)),std(ri_fp_transfer(low_subs)),std(ri_fn_transfer(low_subs));
+    std(rC_fp_transfer(high_subs)),std(rC_fn_transfer(high_subs)),std(ri_fp_transfer(high_subs)),std(ri_fn_transfer(high_subs))]/sqrt(subj_ind-1);
+[bar_xtick,hb,he] = errorbar_groups(bar_input,errorbar_input, 'bar_colors', bar_colors);
+ax = gca;
+ax.FontSize = 18;
+ax.YLim = [0, 80];
 xticklabels({'CP','CN','IP','IN'})
 ylabel('number of trials')
-subplot(1,2,2); hold on
-bar_input = [mean(rC_fp_transfer(high_subs)),mean(rC_fn_transfer(high_subs)),mean(ri_fp_transfer(high_subs)),mean(ri_fn_transfer(high_subs))];
-error_input = [std(rC_fp_transfer(high_subs)),std(rC_fn_transfer(high_subs)),std(ri_fp_transfer(high_subs)),std(ri_fn_transfer(high_subs))]/sqrt(subj_ind-1);
-bar(bar_input,'FaceColor',[240, 59, 32]/255)
-errorbar(bar_input,error_input,'.k')
-ylim([0,80])
-xticks([1,2,3,4])
-xticklabels({'CP','CN','IP','IN'})
-ylabel('number of trials')
+set(gcf,'color','w');
+legend({'low-volatility', 'high-volatility'})
 print(gcf,fullfile(fig_path,'BehavBreakdown_Exp3transfer.eps'),'-depsc2','-painters');
+[H,P,CI,STATS] = ttest2(ri_fp_transfer(low_subs)./ri_fn_transfer(low_subs), ri_fp_transfer(high_subs)./ri_fn_transfer(high_subs))
+[H,P,CI,STATS] = ttest2(rC_fp_transfer(low_subs)./rC_fn_transfer(low_subs), rC_fp_transfer(high_subs)./rC_fn_transfer(high_subs))
+

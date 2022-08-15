@@ -1,6 +1,6 @@
 clear all; close all; clc;
 
-files = dir('/Users/tanyawen/Library/CloudStorage/Box-Box/Home Folder tw260/Private/meta-flexibility/Pilots/mturk/short/version2/*.log');
+files = dir('C:/Users/Tanya Wen/Documents/GitHub/Meta-flexibility/mturk data/experiment2/*.log');
 addpath('/Users/tanyawen/Library/CloudStorage/Box-Box/Home Folder tw260/Private/software/fdr_bh')
 fig_path = '/Users/tanyawen/Library/CloudStorage/Box-Box/Home Folder tw260/Private/meta-flexibility/manuscript/figures';
 
