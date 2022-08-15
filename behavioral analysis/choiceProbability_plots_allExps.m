@@ -13,13 +13,12 @@ phase2_low_after = [exp1results.phase2_low_after;exp2results.phase2_low_after;ex
 phase2_high_after = [exp1results.phase2_high_after;exp2results.phase2_high_after;exp3results.phase2_high_after];
 
 % plot learning rates
-figure('Renderer', 'painters', 'Position', [10 10 700 300]); hold on
-t = tiledlayout(1,2,'TileSpacing','compact');
-bgAx = axes(t,'XTick',[],'YTick',[],'Box','off');
-bgAx.Layout.TileSpan = [1 2];
-% low-volatility group
 % learning
-ax1 = axes(t);
+figure('Renderer', 'painters', 'Position', [10 10 400 300]); hold on
+t = tiledlayout(1,1,'TileSpacing','compact');
+bgAx = axes(t,'XTick',[],'YTick',[],'Box','off');
+
+ax1 = axes(t); % low-volatility group
 errorbar(ax1, 1:3, mean(phase1_low_after),...
     std(phase1_low_after)/sqrt(size(phase1_low_after,1)),...
     'o-','MarkerSize',3,'Color',[254, 178, 76]/255,'LineWidth',1.5);
@@ -31,24 +30,6 @@ xticks([1, 2, 3])
 xticklabels({'31', '61', '91'})
 xline(ax1,4.5,':');
 ax1.Color = 'none';
-
-% transfer
-ax2 = axes(t);
-ax2.Layout.Tile = 2;
-errorbar(ax2, 4:8, mean(phase2_low_after),...
-    std(phase2_low_after)/sqrt(size(phase2_low_after,1)),...
-    'o-','MarkerSize',3,'Color',[254, 178, 76]/255,'LineWidth',1.5);
-ax2.YAxis.Visible = 'off';
-ax2.Box = 'off';
-ax2.FontSize = 14;
-ax2.YLim = [0 1];
-ax2.XLim = [4 9];
-xticklabels({'141', '161', '181', '201', '221'})
-ax2.Color = 'none';
-
-% Link the axes
-linkaxes([ax1 ax2], 'y')
-
 
 % high-volatility group
 ax3 = axes(t);
@@ -63,8 +44,32 @@ ax3.YLim = [0 1];
 ax3.XLim = [0 12];
 ax3.Color = 'none';
 
+ylabel(ax1,'mean accuracy of 1-5 trials after switch')
+xlabel(ax1,'learning phase')
+set(gcf,'color','w')
+print(gcf,fullfile(fig_path,'ChoiceProb_AllExperiments_learning.eps'),'-depsc2','-painters');
+
+% transfer
+figure('Renderer', 'painters', 'Position', [10 10 400 300]); hold on
+t = tiledlayout(1,1,'TileSpacing','compact');
+bgAx = axes(t,'XTick',[],'YTick',[],'Box','off');
+
+ax2 = axes(t);
+ax2.Layout.Tile = 1;
+errorbar(ax2, 4:8, mean(phase2_low_after),...
+    std(phase2_low_after)/sqrt(size(phase2_low_after,1)),...
+    'o-','MarkerSize',3,'Color',[254, 178, 76]/255,'LineWidth',1.5);
+ax2.YAxis.Visible = 'off';
+ax2.Box = 'off';
+ax2.FontSize = 14;
+ax2.YLim = [0 1];
+ax2.XLim = [3 9];
+xticks([4,5,6,7,8])
+xticklabels({'141', '161', '181', '201', '221'})
+ax2.Color = 'none';
+
 ax4 = axes(t);
-ax4.Layout.Tile = 2;
+ax4.Layout.Tile = 1;
 errorbar(ax4, 12:16, mean(phase2_high_after),...
     std(phase2_high_after)/sqrt(size(phase1_high_after,1)),...
     'o-','MarkerSize',3,'Color',[240, 59, 32]/255,'LineWidth',1.5);
@@ -73,20 +78,13 @@ ax4.Visible = 'off';
 ax4.Box = 'off';
 ax4.FontSize = 14;
 ax4.YLim = [0 1];
-ax4.XLim = [12 17];
+ax4.XLim = [11 17];
 ax4.Color = 'none';
 
-% Link the axes
-linkaxes([ax3 ax4], 'y')
 
-
-ylabel(ax1,'mean accuracy of 1-5 trials after switch')
-xlabel(ax1,'learning phase')
 xlabel(ax2,'transfer phase')
 set(gcf,'color','w')
-title(t,'accuracy as a function of rule switch experience','FontSize', 14)
-
-print(gcf,fullfile(fig_path,'ChoiceProb_AllExperiments.eps'),'-depsc2','-painters');
+print(gcf,fullfile(fig_path,'ChoiceProb_AllExperiments_transfer.eps'),'-depsc2','-painters');
 
 % main effect of volatility group
 [H,P,CI,STATS] = ttest2(mean([phase1_low_after,phase2_low_after],2), mean([phase1_high_after,phase2_high_after],2));
