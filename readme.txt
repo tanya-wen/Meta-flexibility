@@ -1,0 +1,1 @@
+RL modeling Ð Code for producing RL modeling used in the paperBehavioral analysis Ð Code for analyzing behavioral data, including RT, accuracy, and choice probability Javascript code Ð Code for running online experiment Mturk Data Ð Raw data collected from Mturk participants with demographics removed
