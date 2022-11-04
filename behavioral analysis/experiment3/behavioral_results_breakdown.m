@@ -71,15 +71,15 @@ high_subs = find(ismember(volatility,'high'));
 bar_colors = [254,178,76; 240,59,32] / 255;
 % plot results
 bar_input = [mean(rC_fp_learning(low_subs)),mean(rC_fn_learning(low_subs)),mean(ri_fp_learning(low_subs)),mean(ri_fn_learning(low_subs));
-    mean(rC_fp_learning(high_subs)),mean(rC_fn_learning(high_subs)),mean(ri_fp_learning(high_subs)),mean(ri_fn_learning(high_subs))];
+    mean(rC_fp_learning(high_subs)),mean(rC_fn_learning(high_subs)),mean(ri_fp_learning(high_subs)),mean(ri_fn_learning(high_subs))] / 120;
 errorbar_input = [std(rC_fp_learning(low_subs)),std(rC_fn_learning(low_subs)),std(ri_fp_learning(low_subs)),std(ri_fn_learning(low_subs));
-    std(rC_fp_learning(high_subs)),std(rC_fn_learning(high_subs)),std(ri_fp_learning(high_subs)),std(ri_fn_learning(high_subs))]/sqrt(subj_ind-1);
+    std(rC_fp_learning(high_subs)),std(rC_fn_learning(high_subs)),std(ri_fp_learning(high_subs)),std(ri_fn_learning(high_subs))]/ 120 /sqrt(subj_ind-1);
 [bar_xtick,hb,he] = errorbar_groups(bar_input,errorbar_input, 'bar_colors', bar_colors);
 ax = gca;
 ax.FontSize = 18;
-ax.YLim = [0, 80];
+ax.YLim = [0, 0.7];
 xticklabels({'CP','CN','IP','IN'})
-ylabel('number of trials')
+ylabel('proportion of trials')
 set(gcf,'color','w');
 legend({'low-volatility', 'high-volatility'})
 print(gcf,fullfile(fig_path,'BehavBreakdown_Exp3learning.eps'),'-depsc2','-painters');
@@ -87,15 +87,15 @@ print(gcf,fullfile(fig_path,'BehavBreakdown_Exp3learning.eps'),'-depsc2','-paint
 [H,P,CI,STATS] = ttest2(rC_fp_learning(low_subs)./rC_fn_learning(low_subs), rC_fp_learning(high_subs)./rC_fn_learning(high_subs))
 
 bar_input = [mean(rC_fp_transfer(low_subs)),mean(rC_fn_transfer(low_subs)),mean(ri_fp_transfer(low_subs)),mean(ri_fn_transfer(low_subs));
-    mean(rC_fp_transfer(high_subs)),mean(rC_fn_transfer(high_subs)),mean(ri_fp_transfer(high_subs)),mean(ri_fn_transfer(high_subs))];
+    mean(rC_fp_transfer(high_subs)),mean(rC_fn_transfer(high_subs)),mean(ri_fp_transfer(high_subs)),mean(ri_fn_transfer(high_subs))] / 120;
 errorbar_input = [std(rC_fp_transfer(low_subs)),std(rC_fn_transfer(low_subs)),std(ri_fp_transfer(low_subs)),std(ri_fn_transfer(low_subs));
-    std(rC_fp_transfer(high_subs)),std(rC_fn_transfer(high_subs)),std(ri_fp_transfer(high_subs)),std(ri_fn_transfer(high_subs))]/sqrt(subj_ind-1);
+    std(rC_fp_transfer(high_subs)),std(rC_fn_transfer(high_subs)),std(ri_fp_transfer(high_subs)),std(ri_fn_transfer(high_subs))]/ 120 /sqrt(subj_ind-1);
 [bar_xtick,hb,he] = errorbar_groups(bar_input,errorbar_input, 'bar_colors', bar_colors);
 ax = gca;
 ax.FontSize = 18;
-ax.YLim = [0, 80];
+ax.YLim = [0, 0.7];
 xticklabels({'CP','CN','IP','IN'})
-ylabel('number of trials')
+ylabel('proportion of trials')
 set(gcf,'color','w');
 legend({'low-volatility', 'high-volatility'})
 print(gcf,fullfile(fig_path,'BehavBreakdown_Exp3transfer.eps'),'-depsc2','-painters');
